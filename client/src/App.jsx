@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react';
 import './App.css';
+import StartPage from '../components/StartPage/StartPage';
 
 function App() {
   return (
-    <>
-      <h2>hello</h2>
-    </>
+    <div className="general-div">
+      <h2>21 The Card Game</h2>
+      <StartPage />
+    </div>
   );
 }
 
