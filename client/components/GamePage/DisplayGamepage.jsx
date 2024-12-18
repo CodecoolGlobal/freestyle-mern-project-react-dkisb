@@ -3,7 +3,7 @@ import DisplayBalances from './DisplayBalances';
 import DisplayCards from './DisplayCards';
 import DisplayButtons from './DisplayButtons';
 
-function DisplayGamePage() {
+function Gamepage() {
   return (
     <div>
       <DisplayBalances />
@@ -13,4 +13,4 @@ function DisplayGamePage() {
   );
 }
 
-export default DisplayGamePage;
+export default Gamepage;
