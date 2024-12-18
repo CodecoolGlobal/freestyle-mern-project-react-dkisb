@@ -4,9 +4,18 @@ import { useState } from 'react';
 
 function StartPage() {
   const [gameStarted, setGameStarted] = useState(false);
+  const [card, setCard] = useState(null);
 
   function handleClick() {
     setGameStarted(true);
+  }
+  async function handleShuffle() {
+    const response = await fetch('/api/cards');
+    const cardIds = await response.json();
+    const cardId = cardIds[0];
+    const response2 = await fetch(`/api/cards/${cardId}`);
+    const cardData = await response2.json();
+    setCard(cardData);
   }
 
   return (

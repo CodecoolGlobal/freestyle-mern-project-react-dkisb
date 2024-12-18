@@ -1,4 +1,5 @@
 import './App.css';
+import StartPage from '../components/StartPage/StartPage';
 import { useState, useEffect } from 'react';
 import StartPage from '../components/StartPage/Startpage';
 

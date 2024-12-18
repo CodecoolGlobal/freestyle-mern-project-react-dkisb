@@ -1,7 +1,7 @@
 import './Gamepage.css';
-import DisplayBalances from './Balances';
-import DisplayCards from './Cards';
-import DisplayButtons from './Userbuttons';
+import DisplayBalances from './DisplayBalances';
+import DisplayCards from './DisplayCards';
+import DisplayButtons from './DisplayButtons';
 
 function Gamepage() {
   return (

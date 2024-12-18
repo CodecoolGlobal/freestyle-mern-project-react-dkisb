@@ -1,3 +1,9 @@
+import { useState } from 'react';
+
+function handleH2PClick() {
+  window.open('https://hu.wikipedia.org/wiki/Huszonegy');
+}
+
 function DisplayButtons() {
   return (
     <div>
@@ -7,7 +13,7 @@ function DisplayButtons() {
         <button>Stop</button>
       </div>
       <div className="help-button">
-        <button>How to play</button>
+        <button onClick={handleH2PClick}>How to play</button>
       </div>
     </div>
   );
