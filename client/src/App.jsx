@@ -1,11 +1,9 @@
-import { useState, useEffect } from 'react';
 import './App.css';
-import StartPage from '../components/StartPage/StartPage';
+import StartPage from '../components/StartPage/Startpage';
 
 function App() {
   return (
     <div className="general-div">
-      <h2>21 The Card Game</h2>
       <StartPage />
     </div>
   );

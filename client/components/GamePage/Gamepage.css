@@ -1,0 +1,128 @@
+.game-page {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  color: #fff;
+  font-family: Arial, sans-serif;
+  overflow: hidden;
+}
+
+.dealers-balance {
+  position: absolute;
+  top: 5%;
+  left: 2%;
+  width: 20%;
+  text-align: left;
+  padding: 10px;
+  font-size: 1.2rem;
+  border-radius: 5px;
+}
+
+.total-bet {
+  position: absolute;
+  top: 50%;
+  left: 2%;
+  transform: translateY(-50%);
+  width: 20%;
+  text-align: left;
+  padding: 10px;
+  font-size: 1.2rem;
+  border-radius: 5px;
+}
+
+.players-balance {
+  position: absolute;
+  bottom: 5%;
+  left: 2%;
+  width: 20%;
+  text-align: left;
+  padding: 10px;
+  font-size: 1.2rem;
+  border-radius: 5px;
+}
+
+.dealers-hand {
+  position: absolute;
+  top: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40%;
+  text-align: center;
+}
+
+.dealers-hand img {
+  height: auto;
+  margin-right: 10px;
+}
+
+.players-hand {
+  position: absolute;
+  bottom: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40%;
+  text-align: center;
+}
+
+.players-hand img {
+  height: auto;
+  margin-right: 10px;
+}
+
+.help-button {
+  position: absolute;
+  top: 5%;
+  right: 5%;
+}
+
+.help-button button {
+  background-color: #ff8c00;
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  font-size: 1rem;
+  border-radius: 5px;
+}
+
+.help-button button:hover {
+  background-color: #ff6347;
+}
+
+.game-focused-buttons {
+  position: absolute;
+  display: inline-block;
+  bottom: 5%;
+  right: 5%;
+  display: flex;
+  gap: 20px;
+}
+
+.game-focused-buttons button {
+  padding: 15px 25px;
+  font-size: 1.2rem;
+}
+
+.game-focused-buttons button:hover {
+  background-color: #20b2aa;
+}
+.card-stack {
+  position: absolute;
+  top: 50%;
+  right: 10%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.card-stack img {
+  width: 150px;
+}
+
+.card-stack p {
+  margin-top: 10px;
+  font-size: 1rem;
+}
+
+body {
+  background-color: #35654d;
+}
