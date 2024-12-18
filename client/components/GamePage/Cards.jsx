@@ -1,4 +1,4 @@
-function DisplayCards() {
+function Cards() {
   return (
     <div>
       <div className="dealers-hand">
@@ -19,4 +19,4 @@ function DisplayCards() {
   );
 }
 
-export default DisplayCards;
+export default Cards;

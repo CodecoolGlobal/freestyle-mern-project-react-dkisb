@@ -1,5 +1,5 @@
 import './Startpage.css';
-import DisplayGamePage from '../Gamepage/Gamepage';
+import Gamepage from '../GamePage/Gamepage';
 import { useState } from 'react';
 
 function StartPage() {
@@ -12,7 +12,7 @@ function StartPage() {
   return (
     <>
       {gameStarted ? (
-        <DisplayGamePage />
+        <Gamepage />
       ) : (
         <div>
           <h2>21 The Card Game</h2>

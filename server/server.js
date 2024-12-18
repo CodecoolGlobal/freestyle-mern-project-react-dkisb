@@ -18,19 +18,19 @@ const dbPassword = process.env.DB_PW;
 mongoose.connect(`mongodb+srv://${dbUser}:${dbPassword}@cluster0.jeldi.mongodb.net/twenty-one-project`);
 
 
-async function createCard(color, name, value, frontImage) {
-    try {
-        const card = await Card.create({
-        color: color,
-        name: name,
-        value: value,
-        frontImage: frontImage,
-        backImage: './pictures/Back.jpg'
-        });
-    } catch (error) {
-        console.error(error);
-    }
-}
+// async function createCard(color, name, value, frontImage) {
+//     try {
+//         const card = await Card.create({
+//         color: color,
+//         name: name,
+//         value: value,
+//         frontImage: frontImage,
+//         backImage: './pictures/Back.jpg'
+//         });
+//     } catch (error) {
+//         console.error(error);
+//     }
+// }
 
 async function listAllIds() {
     const cards = await Card.find();
@@ -48,16 +48,6 @@ app.get('/api/cards/:id', async (req, res) => {
     const card = await Card.findById(id);
     res.send(card);
 })
-
-// async function updatePictures() {
-//     let cards = await Card.find();
-//     cards.map(card => {
-//         return card.frontImage.split('').splice(1,9).join('');
-//     })
-//     await cards.save();
-// }
-// updatePictures();
-
 
 
 async function getRandomDeck() {
