@@ -1,27 +1,27 @@
-import './Startpage.css';
-import Gamepage from '../GamePage/Gamepage';
+import './StartPage.css';
 import { useState } from 'react';
+import GamePage from '../GamePage/GamePage';
 
 function StartPage() {
   const [gameStarted, setGameStarted] = useState(false);
   const [card, setCard] = useState(null);
+  const [randomCardIds, setRandomCardIds] = useState(null)
 
-  function handleClick() {
-    setGameStarted(true);
-  }
-  async function handleShuffle() {
+  async function handleClick() {
     const response = await fetch('/api/cards');
     const cardIds = await response.json();
+    setRandomCardIds(cardIds);
     const cardId = cardIds[0];
     const response2 = await fetch(`/api/cards/${cardId}`);
     const cardData = await response2.json();
     setCard(cardData);
+    setGameStarted(true);
   }
-
+  
   return (
     <>
-      {gameStarted ? (
-        <Gamepage />
+      {gameStarted && randomCardIds ? (
+        <GamePage randomCards={randomCardIds}/>
       ) : (
         <div>
           <h2>21 The Card Game</h2>
