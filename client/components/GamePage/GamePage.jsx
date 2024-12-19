@@ -4,7 +4,7 @@ import Cards from './Cards';
 import DisplayButtons from './DisplayButtons';
 import { useState } from 'react';
 
-function Gamepage({ randomCards }) {
+function Gamepage({randomCards}) {
   const [yourHand, setYourHand] = useState([]);
   const [dealerHand, setDealerHand] = useState([]);
   const [randomCardIds, setRandomCardIds] = useState(randomCards);
@@ -12,11 +12,7 @@ function Gamepage({ randomCards }) {
   const [yourHandData, setYourHandData] = useState([]);
   const [dealerHandData, setDealerHandData] = useState([]);
   const [yourHandValue, setYourHandValue] = useState(0);
-  const [dealerHandValue, setDealerHandValue] = useState(0);
-  const [dealerBalance, setDealerBalance] = useState(100);
-  const [playerBalance, setPlayerBalance] = useState(100);
-  const [totalBet, setTotalBet] = useState(0);
-
+  const [dealerHandValue, setDealerHandValue] = useState(0)
   async function handleMore() {
     setYourHand([...yourHand, randomCardIds[0]]);
     randomCardIds.splice(0, 1);
@@ -28,34 +24,13 @@ function Gamepage({ randomCards }) {
   }
 
   function handleStop() {
-    console.log('Stop button');
+     console.log('Stop button');
   }
-
   return (
     <div>
-      <DisplayBalances dealerMax={dealerBalance} playerMax={playerBalance} currentTotal={totalBet} />
-
-      <Cards
-        yourHandValue={yourHandValue}
-        onSetValue={setYourHandValue}
-        card={randomCardIds[0]}
-        upperCard={upperCardData}
-        numberOfCards={randomCardIds.length}
-        yourHand={yourHand}
-        yourHandData={yourHandData}
-      />
-
-      <DisplayButtons
-        yourHandValue={yourHandValue}
-        onHandleStop={handleStop}
-        onHandleMore={handleMore}
-        dealerMax={dealerBalance}
-        playerMax={playerBalance}
-        currentTotal={totalBet}
-        onBet={setTotalBet}
-        onSetDealer={setDealerBalance}
-        onSetPlayer={setPlayerBalance}
-      />
+      <DisplayBalances />
+      <Cards yourHandValue={yourHandValue} onSetValue={setYourHandValue} card={randomCardIds[0]} upperCard={upperCardData} numberOfCards={randomCardIds.length} yourHand={yourHand} yourHandData={yourHandData}/>
+      <DisplayButtons yourHandValue={yourHandValue} onHandleStop={handleStop} onHandleMore={handleMore}/>
     </div>
   );
 }
