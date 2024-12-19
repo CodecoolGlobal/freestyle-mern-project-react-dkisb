@@ -1,7 +1,11 @@
-import { useState, useEffect } from "react";
+
+import { useState, useEffect } from 'react';
+
+function Cards({ card, numberOfCards, yourHand, upperCard, yourHandData, onSetValue, yourHandValue }) {
 
 function Cards({card, numberOfCards, yourHand, upperCard, yourHandData, dealerHandData, onSetYourValue, yourHandValue, dealerHandValue, onSetDealerValue, stopClicked}) {
   //console.log(upperCard);
+  console.log(upperCard);
   const [upperCardData, setUpperCardData] = useState(null);
   const [yourHandIds, setYourHandIds] = useState(yourHand);
   function yourHandMapping() {
@@ -23,7 +27,7 @@ function Cards({card, numberOfCards, yourHand, upperCard, yourHandData, dealerHa
       onSetDealerValue(dealerHandValue + upperCard.value)
     }
   }, [upperCard]);
-  
+
   return (
     <div>
       <div className="dealers-hand">

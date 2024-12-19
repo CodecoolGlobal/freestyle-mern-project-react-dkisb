@@ -5,16 +5,23 @@ function handleH2PClick() {
 }
 
 
-function DisplayButtons({onHandleMore, onHandleAiMore, yourHandValue, dealerHandValue, onHandleStop, stopClicked}) {
+function DisplayButtons({onHandleMore, onHandleAiMore, yourHandValue, onHandleStop, dealerHandValue, stopClicked, onBet, onSetDealer, onSetPlayer, dealerMax, playerMax, currentTotal}) {
   return (
     <div>
       <div className="game-focused-buttons">
         {yourHandValue < 20 && <button onClick={onHandleMore}>More</button>}
-        
-        <button>Raise bet</button>
-        
-        {yourHandValue >= 15 && <button onClick={onHandleStop}>Stop</button>}
+
+        <button onClick={handleRaiseBetClick}>Raise bet</button>
+
+        {yourHandValue >= 15 && <button onClick={onHandleStop}>Enough</button>}
+
       </div>
+      {showBetInput && (
+        <div className="bet-input">
+          <input type="text" placeholder="Enter your bet" value={betAmount} onChange={handleChange} max={maxBalance} />
+          <button onClick={handlePlaceBet}>Place Bet</button>
+        </div>
+      )}
       <div className="help-button">
         <button onClick={handleH2PClick}>How to play</button>
       </div>

@@ -5,7 +5,7 @@ import GamePage from '../GamePage/GamePage';
 function StartPage() {
   const [gameStarted, setGameStarted] = useState(false);
   const [card, setCard] = useState(null);
-  const [randomCardIds, setRandomCardIds] = useState(null)
+  const [randomCardIds, setRandomCardIds] = useState(null);
 
   async function handleClick() {
     const response = await fetch('/api/cards');
@@ -17,14 +17,17 @@ function StartPage() {
     setCard(cardData);
     setGameStarted(true);
   }
-  
+
   return (
     <>
       {gameStarted && randomCardIds ? (
-        <GamePage randomCards={randomCardIds}/>
+        <GamePage randomCards={randomCardIds} />
       ) : (
-        <div>
-          <h2>21 The Card Game</h2>
+        <>
+          <div className="start-header">
+            <h2>21 The Card Game</h2>
+          </div>
+
           <div className="start-page">
             <button onClick={handleClick} className="start-button">
               Start Game
@@ -35,7 +38,8 @@ function StartPage() {
               <button>Help</button>
             </div>
           </div>
-        </div>
+        </>
+
       )}
     </>
   );
