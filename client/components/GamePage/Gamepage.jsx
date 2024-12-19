@@ -45,15 +45,6 @@ function Gamepage({randomCards}) {
      setUpperCardData(cardData);
      setDealerHandData([...dealerHandData, cardData]);
   }
-  // useEffect(() => {
-  //   if (upperCardData && stopClicked && dealerHandValue < 15) {
-  //     setDealerHandValue(dealerHandValue + upperCardData.value);
-  //     console.log(dealerHandValue)
-  //   } //else if (upperCard && stopClicked) {
-  //     //onSetDealerValue(dealerHandValue + upperCard.value)
-  //   //}
-  // }, [upperCardData]);
-
   return (
     <div>
       <DisplayBalances />
