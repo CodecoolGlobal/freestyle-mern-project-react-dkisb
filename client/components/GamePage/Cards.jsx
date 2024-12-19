@@ -1,21 +1,24 @@
-import { useState, useEffect } from "react";
 
-function Cards({card, numberOfCards, yourHand, upperCard, yourHandData, onSetValue, yourHandValue}) {
+import { useState, useEffect } from 'react';
+
+function Cards({ card, numberOfCards, yourHand, upperCard, yourHandData, onSetValue, yourHandValue }) {
+
   console.log(upperCard);
   const [upperCardData, setUpperCardData] = useState(null);
   const [yourHandIds, setYourHandIds] = useState(yourHand);
   function yourHandMapping() {
     const handImages = yourHandData.map((item, index) => {
-      return <img key={index} src={`http://localhost:3000${item.frontImage}`} width="60px" alt="" />
-    })
+      return <img key={index} src={`http://localhost:3000${item.frontImage}`} width="85px" alt="" />;
+    });
+
     return handImages;
   }
   useEffect(() => {
     if (upperCard) {
-      onSetValue(yourHandValue + upperCard.value)
+      onSetValue(yourHandValue + upperCard.value);
     }
   }, [upperCard]);
-  
+
   return (
     <div>
       <div className="dealers-hand">
