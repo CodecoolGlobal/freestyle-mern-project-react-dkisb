@@ -4,7 +4,7 @@ import Cards from './Cards';
 import DisplayButtons from './DisplayButtons';
 import { useState } from 'react';
 
-function GamePage({ randomCards }) {
+function Gamepage({ randomCards }) {
   const [yourHand, setYourHand] = useState([]);
   const [dealerHand, setDealerHand] = useState([]);
   const [randomCardIds, setRandomCardIds] = useState(randomCards);
@@ -59,4 +59,4 @@ function GamePage({ randomCards }) {
   );
 }
 
-export default GamePage;
+export default Gamepage;

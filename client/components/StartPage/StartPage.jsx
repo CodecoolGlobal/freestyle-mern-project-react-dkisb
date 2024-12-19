@@ -1,6 +1,6 @@
 import './StartPage.css';
 import { useState } from 'react';
-import GamePage from '../GamePage/GamePage';
+import Gamepage from '../GamePage/GamePage';
 
 function StartPage() {
   const [gameStarted, setGameStarted] = useState(false);
@@ -21,7 +21,7 @@ function StartPage() {
   return (
     <>
       {gameStarted && randomCardIds ? (
-        <GamePage randomCards={randomCardIds} />
+        <Gamepage randomCards={randomCardIds} />
       ) : (
         <>
           <div className="start-header">
