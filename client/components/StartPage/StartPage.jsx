@@ -1,7 +1,6 @@
 import './StartPage.css';
 import { useState } from 'react';
 import Gamepage from '../GamePage/Gamepage';
-
 function StartPage() {
   const [gameStarted, setGameStarted] = useState(false);
   const [card, setCard] = useState(null);
