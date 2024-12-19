@@ -51,6 +51,7 @@ function DisplayButtons({
         <button onClick={handleRaiseBetClick}>Raise bet</button>
 
         {yourHandValue >= 15 && <button onClick={onHandleStop}>Enough</button>}
+
       </div>
       {showBetInput && (
         <div className="bet-input">
