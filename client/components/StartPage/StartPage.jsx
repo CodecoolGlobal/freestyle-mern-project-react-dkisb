@@ -27,6 +27,7 @@ function StartPage() {
           <div className="start-header">
             <h2>21 The Card Game</h2>
           </div>
+
           <div className="start-page">
             <button onClick={handleClick} className="start-button">
               Start Game
@@ -38,6 +39,7 @@ function StartPage() {
             </div>
           </div>
         </>
+
       )}
     </>
   );
