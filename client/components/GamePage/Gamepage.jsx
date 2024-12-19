@@ -4,7 +4,7 @@ import Cards from './Cards';
 import DisplayButtons from './DisplayButtons';
 import { useState } from 'react';
 
-function Gamepage({ randomCards }) {
+function GamePage({ randomCards }) {
   const [yourHand, setYourHand] = useState([]);
   const [dealerHand, setDealerHand] = useState([]);
   const [randomCardIds, setRandomCardIds] = useState(randomCards);
@@ -30,7 +30,6 @@ function Gamepage({ randomCards }) {
   function handleStop() {
     console.log('Stop button');
   }
-
   return (
     <div>
       <DisplayBalances dealerMax={dealerBalance} playerMax={playerBalance} currentTotal={totalBet} />
@@ -60,4 +59,4 @@ function Gamepage({ randomCards }) {
   );
 }
 
-export default Gamepage;
+export default GamePage;
