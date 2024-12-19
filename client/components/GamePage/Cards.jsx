@@ -1,30 +1,37 @@
+import { useState, useEffect } from "react";
 
-import { useState, useEffect } from 'react';
-
-function Cards({ card, numberOfCards, yourHand, upperCard, yourHandData, onSetValue, yourHandValue }) {
-
-  console.log(upperCard);
+function Cards({card, numberOfCards, yourHand, upperCard, yourHandData, dealerHandData, onSetYourValue, yourHandValue, dealerHandValue, onSetDealerValue, stopClicked}) {
+  //console.log(upperCard);
   const [upperCardData, setUpperCardData] = useState(null);
   const [yourHandIds, setYourHandIds] = useState(yourHand);
   function yourHandMapping() {
     const handImages = yourHandData.map((item, index) => {
-      return <img key={index} src={`http://localhost:3000${item.frontImage}`} width="85px" alt="" />;
-    });
-
+      return <img key={index} src={`http://localhost:3000${item.frontImage}`} width="60px" alt="" />
+    })
+    return handImages;
+  }
+  function dealerHandMapping() {
+    const handImages = dealerHandData.map((item, index) => {
+      return <img key={`dealer-${index}`} src={`http://localhost:3000${item.backImage}`} width="100px" alt="" />
+    })
     return handImages;
   }
   useEffect(() => {
-    if (upperCard) {
-      onSetValue(yourHandValue + upperCard.value);
+    if (upperCard && !stopClicked) {
+      onSetYourValue(yourHandValue + upperCard.value)
+    } else if (upperCard && stopClicked) {
+      onSetDealerValue(dealerHandValue + upperCard.value)
     }
   }, [upperCard]);
-
+  
   return (
     <div>
       <div className="dealers-hand">
-        <img src="https://www.pngall.com/wp-content/uploads/4/Fanned-Playing-Card-PNG-Pic.png" width="150px" alt="" />
+        {dealerHandMapping()}
+        {/* <img src="https://www.pngall.com/wp-content/uploads/4/Fanned-Playing-Card-PNG-Pic.png" width="150px" alt="" /> */}
         <p>Hand of the dealer</p>
-        <p>Value: </p>
+        <p>Value: {dealerHandValue}</p>
+        {dealerHandValue > 21 && <h2>Congratulation, you won!</h2>}
       </div>
       <div className="players-hand">
         {yourHandMapping()}
