@@ -25,7 +25,7 @@ async function createCard(color, name, value, frontImage) {
       name: name,
       value: value,
       frontImage: frontImage,
-      backImage: './pictures/Back.jpg',
+      backImage: './Back.jpg',
     });
   } catch (error) {
     console.error(error);

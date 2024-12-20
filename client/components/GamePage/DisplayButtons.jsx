@@ -11,6 +11,8 @@ function DisplayButtons({
   dealerHandValue,
   onHandleStop,
   stopClicked,
+  enoughClicked,
+  onSetEnoughClicked,
   onBet,
   onSetDealer,
   onSetPlayer,
@@ -50,11 +52,10 @@ function DisplayButtons({
   return (
     <div>
       <div className="game-focused-buttons">
-        {yourHandValue < 20 && <button onClick={onHandleMore}>More</button>}
+        {(yourHandValue < 20 && !stopClicked) && <button onClick={onHandleMore}>More</button>}
+        {!stopClicked && <button onClick={handleRaiseBetClick}>Raise bet</button>}
 
-        <button onClick={handleRaiseBetClick}>Raise bet</button>
-
-        {yourHandValue >= 15 && <button onClick={onHandleStop}>Stop</button>}
+        {yourHandValue >= 15 && !stopClicked && <button onClick={onHandleStop}>Stop</button>}
       </div>
       {showBetInput && (
         <div className="bet-input">
@@ -72,7 +73,7 @@ function DisplayButtons({
       )}
       {stopClicked && dealerHandValue >= 15 && dealerHandValue <= 21 && (
         <div className="ai-enough-button">
-          <button>Enough</button>
+          {!enoughClicked && <button onClick={() => onSetEnoughClicked(true)}>Enough</button>}
         </div>
       )}
     </div>

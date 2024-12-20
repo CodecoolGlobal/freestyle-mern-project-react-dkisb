@@ -14,9 +14,12 @@ function Gamepage({ randomCards }) {
   const [yourHandValue, setYourHandValue] = useState(0);
   const [dealerHandValue, setDealerHandValue] = useState(0);
   const [stopClicked, setStopClicked] = useState(false);
+  const [enoughClicked, setEnoughClicked] = useState(false);
   const [dealerBalance, setDealerBalance] = useState(100);
   const [playerBalance, setPlayerBalance] = useState(100);
   const [totalBet, setTotalBet] = useState(0);
+  const [winner, setWinner] = useState(null);
+
   async function handleMore() {
     setYourHand([...yourHand, randomCardIds[0]]);
     randomCardIds.splice(0, 1);
@@ -48,6 +51,7 @@ function Gamepage({ randomCards }) {
     setUpperCardData(cardData);
     setDealerHandData([...dealerHandData, cardData]);
   }
+
   return (
     <div>
       <DisplayBalances dealerMax={dealerBalance} playerMax={playerBalance} currentTotal={totalBet} />
@@ -55,6 +59,7 @@ function Gamepage({ randomCards }) {
         yourHandValue={yourHandValue}
         dealerHandValue={dealerHandValue}
         stopClicked={stopClicked}
+        enoughClicked={enoughClicked}
         onSetYourValue={setYourHandValue}
         onSetDealerValue={setDealerHandValue}
         card={randomCardIds[0]}
@@ -63,10 +68,20 @@ function Gamepage({ randomCards }) {
         yourHand={yourHand}
         yourHandData={yourHandData}
         dealerHandData={dealerHandData}
+        onSetWinner={setWinner}
+        playerBalance={playerBalance}
+        dealerBalance={dealerBalance}
+        totalBet={totalBet}
+        onPlayerBalance={setPlayerBalance}
+        onDealerBalance={setDealerBalance}
+        onTotalBet={setTotalBet}
+
       />
       <DisplayButtons
         dealerHandValue={dealerHandValue}
         stopClicked={stopClicked}
+        enoughClicked={enoughClicked}
+        onSetEnoughClicked={setEnoughClicked}
         yourHandValue={yourHandValue}
         onHandleStop={handleStop}
         onHandleMore={handleMore}

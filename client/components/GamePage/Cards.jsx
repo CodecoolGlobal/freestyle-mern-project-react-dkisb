@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-function Cards({card, numberOfCards, yourHand, upperCard, yourHandData, dealerHandData, onSetYourValue, yourHandValue, dealerHandValue, onSetDealerValue, stopClicked}) {
+function Cards({card, playerBalance, onPlayerBalance, dealerBalance, onDealerBalance, totalBet, onTotalBet, numberOfCards, yourHand, upperCard, yourHandData, dealerHandData, onSetYourValue, yourHandValue, dealerHandValue, onSetDealerValue, stopClicked, enoughClicked, onSetWinner}) {
   //console.log(upperCard);
   const [upperCardData, setUpperCardData] = useState(null);
   const [yourHandIds, setYourHandIds] = useState(yourHand);
@@ -12,7 +12,11 @@ function Cards({card, numberOfCards, yourHand, upperCard, yourHandData, dealerHa
   }
   function dealerHandMapping() {
     const handImages = dealerHandData.map((item, index) => {
-      return <img key={`dealer-${index}`} src={`http://localhost:3000${item.backImage}`} width="100px" alt="" />
+      if (!enoughClicked && dealerHandValue < 22) {
+        return <img key={`dealer-${index}`} src={`http://localhost:3000${item.backImage}`} width="100px" alt="" />
+      } else if (enoughClicked || dealerHandValue > 21) {
+        return <img key={`dealer-${index}`} src={`http://localhost:3000${item.frontImage}`} width="60px" alt="" />
+      }
     })
     return handImages;
   }
@@ -30,8 +34,10 @@ function Cards({card, numberOfCards, yourHand, upperCard, yourHandData, dealerHa
         {dealerHandMapping()}
         {/* <img src="https://www.pngall.com/wp-content/uploads/4/Fanned-Playing-Card-PNG-Pic.png" width="150px" alt="" /> */}
         <p>Hand of the dealer</p>
-        <p>Value: {dealerHandValue}</p>
+        {(enoughClicked || dealerHandValue > 21) && <p>Value: {dealerHandValue}</p>}
         {dealerHandValue > 21 && <h2>Congratulation, you won!</h2>}
+        {(enoughClicked && dealerHandValue >= yourHandValue) && <h2>Sorry, you lost!</h2>}
+        {(enoughClicked && dealerHandValue < yourHandValue) && <h2>Congratulation, you won!</h2>}
       </div>
       <div className="players-hand">
         {yourHandMapping()}
