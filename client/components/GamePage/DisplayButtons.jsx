@@ -54,8 +54,7 @@ function DisplayButtons({
     <div>
       <div className="game-focused-buttons">
         {(yourHandValue < 20 && !stopClicked) && <button onClick={onHandleMore}>More</button>}
-        {!stopClicked && <button onClick={handleRaiseBetClick}>Raise bet</button>}
-
+        {yourHandValue < 20 && !stopClicked && <button onClick={handleRaiseBetClick}>Raise bet</button>}
         {yourHandValue >= 15 && yourHandValue < 20 && !stopClicked && <button onClick={onHandleStop}>Enough</button>}
       </div>
       {showBetInput && (
@@ -72,11 +71,12 @@ function DisplayButtons({
           <button onClick={onHandleAiMore}>More</button>
         </div>
       )}
-      {stopClicked && ((dealerHandValue >= 15 && dealerHandValue <= 21) || (dealerHandValue === 22 && dealerHand.length === 2)) && (
-        <div className="ai-enough-button">
-          {!enoughClicked && <button onClick={() => onSetEnoughClicked(true)}>Enough</button>}
-        </div>
-      )}
+      {stopClicked &&
+        ((dealerHandValue >= 15 && dealerHandValue <= 21) || (dealerHandValue === 22 && dealerHand.length === 2)) && (
+          <div className="ai-enough-button">
+            {!enoughClicked && <button onClick={() => onSetEnoughClicked(true)}>Enough</button>}
+          </div>
+        )}
     </div>
   );
 }
