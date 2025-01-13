@@ -33,12 +33,11 @@ function StartPage() {
             </button>
             <div className="bottom-buttons">
               <button>Rules</button>
-              <button>My Stats</button>
+              <button>Account</button>
               <button>Help</button>
             </div>
           </div>
         </>
-
       )}
     </>
   );
