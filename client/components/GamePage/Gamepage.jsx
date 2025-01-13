@@ -66,6 +66,7 @@ function Gamepage({ randomCards }) {
         upperCard={upperCardData}
         numberOfCards={randomCardIds.length}
         yourHand={yourHand}
+        dealerHand={dealerHand}
         yourHandData={yourHandData}
         dealerHandData={dealerHandData}
         onSetWinner={setWinner}
@@ -79,6 +80,7 @@ function Gamepage({ randomCards }) {
       />
       <DisplayButtons
         dealerHandValue={dealerHandValue}
+        dealerHand={dealerHand}
         stopClicked={stopClicked}
         enoughClicked={enoughClicked}
         onSetEnoughClicked={setEnoughClicked}

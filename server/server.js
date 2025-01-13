@@ -75,9 +75,14 @@ async function updateUser(id, money, games, win, loss) {
   User.save();
 }
 
-app.get('/api/cards', async (req, res) => {
-  const cardIds = await getRandomDeck();
-  res.send(cardIds);
+app.get('/api/cards', async (req, res, next) => {
+  try {
+    const cardIds = await getRandomDeck();
+    res.send(cardIds);
+  } catch (error) {
+    next(error);
+  }
+
 });
 app.get('/api/cards/:id', async (req, res) => {
   const id = req.params.id;

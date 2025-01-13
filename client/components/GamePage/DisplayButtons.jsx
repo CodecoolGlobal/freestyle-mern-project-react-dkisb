@@ -9,6 +9,7 @@ function DisplayButtons({
   onHandleAiMore,
   yourHandValue,
   dealerHandValue,
+  dealerHand,
   onHandleStop,
   stopClicked,
   enoughClicked,
@@ -71,7 +72,7 @@ function DisplayButtons({
           <button onClick={onHandleAiMore}>More</button>
         </div>
       )}
-      {stopClicked && dealerHandValue >= 15 && dealerHandValue <= 21 && (
+      {stopClicked && ((dealerHandValue >= 15 && dealerHandValue <= 21) || (dealerHandValue === 22 && dealerHand.length === 2)) && (
         <div className="ai-enough-button">
           {!enoughClicked && <button onClick={() => onSetEnoughClicked(true)}>Enough</button>}
         </div>
