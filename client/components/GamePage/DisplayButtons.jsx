@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 function handleH2PClick() {
-  window.open('https://hu.wikipedia.org/wiki/Huszonegy');
+  window.open('https://hu.wikipedia.org/wiki/Huszonegyes');
 }
 
 function DisplayButtons({
@@ -53,9 +53,8 @@ function DisplayButtons({
   return (
     <div>
       <div className="game-focused-buttons">
-        {(yourHandValue < 20 && !stopClicked) && <button onClick={onHandleMore}>More</button>}
-        {!stopClicked && <button onClick={handleRaiseBetClick}>Raise bet</button>}
-
+        {yourHandValue < 20 && !stopClicked && <button onClick={onHandleMore}>More</button>}
+        {yourHandValue < 20 && !stopClicked && <button onClick={handleRaiseBetClick}>Raise bet</button>}
         {yourHandValue >= 15 && !stopClicked && <button onClick={onHandleStop}>Stop</button>}
       </div>
       {showBetInput && (
@@ -72,11 +71,12 @@ function DisplayButtons({
           <button onClick={onHandleAiMore}>More</button>
         </div>
       )}
-      {stopClicked && ((dealerHandValue >= 15 && dealerHandValue <= 21) || (dealerHandValue === 22 && dealerHand.length === 2)) && (
-        <div className="ai-enough-button">
-          {!enoughClicked && <button onClick={() => onSetEnoughClicked(true)}>Enough</button>}
-        </div>
-      )}
+      {stopClicked &&
+        ((dealerHandValue >= 15 && dealerHandValue <= 21) || (dealerHandValue === 22 && dealerHand.length === 2)) && (
+          <div className="ai-enough-button">
+            {!enoughClicked && <button onClick={() => onSetEnoughClicked(true)}>Enough</button>}
+          </div>
+        )}
     </div>
   );
 }
