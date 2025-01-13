@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 function handleH2PClick() {
-  window.open('https://hu.wikipedia.org/wiki/Huszonegy');
+  window.open('https://hu.wikipedia.org/wiki/Huszonegyes');
 }
 
 function DisplayButtons({
@@ -56,7 +56,7 @@ function DisplayButtons({
         {(yourHandValue < 20 && !stopClicked) && <button onClick={onHandleMore}>More</button>}
         {!stopClicked && <button onClick={handleRaiseBetClick}>Raise bet</button>}
 
-        {yourHandValue >= 15 && !stopClicked && <button onClick={onHandleStop}>Stop</button>}
+        {yourHandValue >= 15 && yourHandValue < 20 && !stopClicked && <button onClick={onHandleStop}>Enough</button>}
       </div>
       {showBetInput && (
         <div className="bet-input">

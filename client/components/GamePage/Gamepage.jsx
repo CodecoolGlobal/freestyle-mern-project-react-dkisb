@@ -54,7 +54,10 @@ function Gamepage({ randomCards }) {
 
   return (
     <div>
-      <DisplayBalances dealerMax={dealerBalance} playerMax={playerBalance} currentTotal={totalBet} />
+      <DisplayBalances 
+        dealerMax={dealerBalance} 
+        playerMax={playerBalance} 
+        currentTotal={totalBet} />
       <Cards
         yourHandValue={yourHandValue}
         dealerHandValue={dealerHandValue}
