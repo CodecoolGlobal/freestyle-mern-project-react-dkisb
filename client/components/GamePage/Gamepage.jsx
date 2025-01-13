@@ -2,7 +2,7 @@ import './GamePage.css';
 import DisplayBalances from './DisplayBalances';
 import Cards from './Cards';
 import DisplayButtons from './DisplayButtons';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 function Gamepage({ randomCards }) {
   const [yourHand, setYourHand] = useState([]);
