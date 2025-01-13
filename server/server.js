@@ -38,16 +38,11 @@ async function listAllIds() {
   return ids;
 }
 
-async function createUser() {
+async function createUser(name, password) {
   try {
     const user = await User.create({
-      Username,
-      Name,
-      Email,
-      Games,
-      Money,
-      Win,
-      Loss,
+      Username: name,
+      Password: password,
     });
   } catch (error) {
     console.error(error);
@@ -65,7 +60,7 @@ async function deleteUser(id) {
 async function updateUser(id, money, games, win, loss) {
   try {
     const user = await User.findByIdAndUpdate(id);
-    user.Money = money;
+    user.Balance = money;
     user.Games = games;
     user.Win = win;
     user.Loss = loss;
@@ -82,12 +77,15 @@ app.get('/api/cards', async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-
 });
-app.get('/api/cards/:id', async (req, res) => {
-  const id = req.params.id;
-  const card = await Card.findById(id);
-  res.send(card);
+app.get('/api/cards/:id', async (req, res, next) => {
+  try {
+    const id = req.params.id;
+    const card = await Card.findById(id);
+    res.send(card);
+  } catch (error) {
+    next(error);
+  }
 });
 
 async function getRandomDeck() {
