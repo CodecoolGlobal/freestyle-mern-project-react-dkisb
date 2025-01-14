@@ -20,7 +20,7 @@ function StartPage() {
   return (
     <>
       {gameStarted && randomCardIds ? (
-        <Gamepage randomCards={randomCardIds} />
+        <Gamepage randomCards={randomCardIds} gameStarted={setGameStarted} />
       ) : (
         <>
           <div className="start-header">
