@@ -18,7 +18,7 @@ function Gamepage({ randomCards }) {
   const [dealerBalance, setDealerBalance] = useState(100);
   const [playerBalance, setPlayerBalance] = useState(100);
   const [totalBet, setTotalBet] = useState(0);
-  const [winner, setWinner] = useState(null);
+  const [winner, setWinner] = useState('');
 
   async function handleMore() {
     setYourHand([...yourHand, randomCardIds[0]]);
