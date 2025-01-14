@@ -2,9 +2,7 @@ import './GamePage.css';
 import DisplayBalances from './DisplayBalances';
 import Cards from './Cards';
 import DisplayButtons from './DisplayButtons';
-import StartPage from '../StartPage/StartPage';
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 function Gamepage({ randomCards, gameStarted, user }) {
   console.log(user)
@@ -25,9 +23,6 @@ function Gamepage({ randomCards, gameStarted, user }) {
   const [totalBet, setTotalBet] = useState(0);
   const [winner, setWinner] = useState('');
   const [isGameOver, setIsGameOver] = useState(false);
-  const [isGameOn, setIsGameOn] = useState(true);
-  const [outcomeMessage, setOutcomeMessage] = useState('');
-  const navigate = useNavigate();
 
   async function handleMore() {
     setYourHand([...yourHand, randomCardIds[0]]);
@@ -66,72 +61,65 @@ function Gamepage({ randomCards, gameStarted, user }) {
     }
   }, [isGameOver]);
 
-  function handleNewGame() {
-    setIsGameOver(true);
-    gameStarted(false);
-    navigate('/startpage');
-  }
-  function handleQuit() {
-    setIsGameOver(true);
-    gameStarted(false);
-    navigate('/');
-  }
+  useEffect(() => {
+    if (winner === 'player') {
+      setPlayerBalance(playerBalance + totalBet);
+      setTotalBet(0);
+    }
+  }, [isGameOver]);
+
+  useEffect(() => {
+    if (winner === 'dealer') {
+      setDealerBalance(dealerBalance + totalBet);
+      setTotalBet(0);
+    }
+  }, [isGameOver]);
 
   return (
     <div>
-      {isGameOver ? (
-        <div>
-          <button onClick={handleNewGame}>New Game</button>
-          <button onClick={handleQuit}>Quit</button>
-          <h1>{outcomeMessage}</h1>
-        </div>
-      ) : (
-        <>
-          <DisplayBalances dealerMax={dealerBalance} playerMax={playerBalance} currentTotal={totalBet} />
-          <Cards
-            yourHandValue={yourHandValue}
-            dealerHandValue={dealerHandValue}
-            stopClicked={stopClicked}
-            enoughClicked={enoughClicked}
-            onSetYourValue={setYourHandValue}
-            onSetDealerValue={setDealerHandValue}
-            card={randomCardIds[0]}
-            upperCard={upperCardData}
-            numberOfCards={randomCardIds.length}
-            yourHand={yourHand}
-            dealerHand={dealerHand}
-            yourHandData={yourHandData}
-            dealerHandData={dealerHandData}
-            onSetWinner={setWinner}
-            playerBalance={playerBalance}
-            dealerBalance={dealerBalance}
-            totalBet={totalBet}
-            onPlayerBalance={setPlayerBalance}
-            onDealerBalance={setDealerBalance}
-            onTotalBet={setTotalBet}
-            setGameOver={setIsGameOver}
-            outcomeMessage={setOutcomeMessage}
-
-          />
-          <DisplayButtons
-            dealerHandValue={dealerHandValue}
-            dealerHand={dealerHand}
-            stopClicked={stopClicked}
-            enoughClicked={enoughClicked}
-            onSetEnoughClicked={setEnoughClicked}
-            yourHandValue={yourHandValue}
-            onHandleStop={handleStop}
-            onHandleMore={handleMore}
-            onHandleAiMore={handleAiMore}
-            dealerMax={dealerBalance}
-            playerMax={playerBalance}
-            currentTotal={totalBet}
-            onBet={setTotalBet}
-            onSetDealer={setDealerBalance}
-            onSetPlayer={setPlayerBalance}
-          />
-        </>
-      )}
+      <DisplayBalances dealerMax={dealerBalance} playerMax={playerBalance} currentTotal={totalBet} />
+      <Cards
+        yourHandValue={yourHandValue}
+        dealerHandValue={dealerHandValue}
+        stopClicked={stopClicked}
+        enoughClicked={enoughClicked}
+        onSetYourValue={setYourHandValue}
+        onSetDealerValue={setDealerHandValue}
+        card={randomCardIds[0]}
+        upperCard={upperCardData}
+        numberOfCards={randomCardIds.length}
+        yourHand={yourHand}
+        dealerHand={dealerHand}
+        yourHandData={yourHandData}
+        dealerHandData={dealerHandData}
+        onSetWinner={setWinner}
+        playerBalance={playerBalance}
+        dealerBalance={dealerBalance}
+        totalBet={totalBet}
+        onPlayerBalance={setPlayerBalance}
+        onDealerBalance={setDealerBalance}
+        onTotalBet={setTotalBet}
+        setGameOver={setIsGameOver}
+        onGameOver={isGameOver}
+        gameStarted={gameStarted}
+      />
+      <DisplayButtons
+        dealerHandValue={dealerHandValue}
+        dealerHand={dealerHand}
+        stopClicked={stopClicked}
+        enoughClicked={enoughClicked}
+        onSetEnoughClicked={setEnoughClicked}
+        yourHandValue={yourHandValue}
+        onHandleStop={handleStop}
+        onHandleMore={handleMore}
+        onHandleAiMore={handleAiMore}
+        dealerMax={dealerBalance}
+        playerMax={playerBalance}
+        currentTotal={totalBet}
+        onBet={setTotalBet}
+        onSetDealer={setDealerBalance}
+        onSetPlayer={setPlayerBalance}
+      />
     </div>
   );
 }

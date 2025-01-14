@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function Cards({
   card,
@@ -22,10 +23,13 @@ function Cards({
   enoughClicked,
   onSetWinner,
   setGameOver,
-  outcomeMessage,
+  onGameOver,
+  gameStarted,
 }) {
   const [upperCardData, setUpperCardData] = useState(null);
   const [yourHandIds, setYourHandIds] = useState(yourHand);
+  const [outcomeMessage, setOutcomeMessage] = useState('');
+  const navigate = useNavigate();
   function yourHandMapping() {
     yourHandValue === 20 || yourHandValue === 21;
     const handImages = yourHandData.map((item, index) => {
@@ -55,27 +59,27 @@ function Cards({
     if (dealerHandValue >= 22 && dealerHand.length > 2) {
       onSetWinner('player');
       setGameOver(true);
-      outcomeMessage('Congratulation, you won!');
+      setOutcomeMessage('Congratulation, you won!');
     } else if (enoughClicked && dealerHandValue === 22 && dealerHand.length === 2) {
       onSetWinner('dealer');
       setGameOver(true);
-      outcomeMessage('FIRE! Sorry, you lost!');
+      setOutcomeMessage('FIRE! Sorry, you lost!');
     } else if (enoughClicked && dealerHandValue >= yourHandValue && dealerHandValue < 22) {
       onSetWinner('dealer');
       setGameOver(true);
-      outcomeMessage('Sorry, you lost!');
+      setOutcomeMessage('Sorry, you lost!');
     } else if (enoughClicked && dealerHandValue < yourHandValue) {
       onSetWinner('player');
       setGameOver(true);
-      outcomeMessage('Congratulation, you won!');
+      setOutcomeMessage('Congratulation, you won!');
     } else if (yourHandValue >= 22 && yourHand.length > 2) {
       onSetWinner('dealer');
       setGameOver(true);
-      outcomeMessage('Sorry, you lost!');
+      setOutcomeMessage('Sorry, you lost!');
     } else if (yourHandValue === 22 && yourHand.length === 2) {
       onSetWinner('player');
       setGameOver(true);
-      outcomeMessage('FIRE! Congratulation, you won!');
+      setOutcomeMessage('FIRE! Congratulation, you won!');
     }
   }, [
     dealerHandValue,
@@ -85,25 +89,69 @@ function Cards({
     yourHand.length,
     onSetWinner,
     setGameOver,
-    outcomeMessage,
+    onGameOver,
+    gameStarted,
   ]);
+
+  function handleNewGame() {
+    setGameOver(true);
+    gameStarted(false);
+    navigate('/startpage');
+  }
+  function handleQuit() {
+    setGameOver(true);
+    gameStarted(false);
+    navigate('/');
+  }
 
   return (
     <div>
-      <div className="dealers-hand">
-        {dealerHandMapping()}
-        <p>Hand of the dealer</p>
-        {(enoughClicked || (dealerHandValue > 21 && dealerHand.length > 2)) && <p>Value: {dealerHandValue}</p>}
-      </div>
-      <div className="players-hand">
-        {yourHandMapping()}
-        <p>Your hand</p>
-        <p>Value: {yourHandValue}</p>
-      </div>
-      <div className="card-stack">
-        <img src={`http://localhost:3000/Back.jpg`} width="150px" alt="" />
-        <p>Card Stack ({numberOfCards} remaining)</p>
-      </div>
+      {!onGameOver ? (
+        <div>
+          <div className="dealers-hand">
+            {dealerHandMapping()}
+            <p>Hand of the dealer</p>
+            {(enoughClicked || (dealerHandValue > 21 && dealerHand.length > 2)) && (
+              <p>
+                <strong>Value: {dealerHandValue}</strong>
+              </p>
+            )}
+          </div>
+          <div className="players-hand">
+            {yourHandMapping()}
+            <p>Your hand</p>
+            <p>
+              <strong>Value: {yourHandValue}</strong>
+            </p>
+          </div>
+          <div className="card-stack">
+            <img src={`http://localhost:3000/Back.jpg`} width="150px" alt="" />
+            <p>Card Stack ({numberOfCards} remaining)</p>
+          </div>
+        </div>
+      ) : (
+        <div>
+          <div className="dealers-hand">
+            {dealerHandMapping()}
+            <p>Hand of the dealer</p>
+            {(enoughClicked || (dealerHandValue > 21 && dealerHand.length > 2)) && <p>Value: {dealerHandValue}</p>}
+          </div>
+          <div className="endGameNavBTNs">
+            <h1>{outcomeMessage}</h1>
+            <button onClick={handleNewGame}>New Game</button>
+            <button onClick={handleQuit}>Quit and Logout</button>
+          </div>
+          <div className="players-hand">
+            {yourHandMapping()}
+            <p>Your hand</p>
+            <p>Value: {yourHandValue}</p>
+          </div>
+          <div className="card-stack">
+            <img src={`http://localhost:3000/Back.jpg`} width="150px" alt="" />
+            <p>Card Stack ({numberOfCards} remaining)</p>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

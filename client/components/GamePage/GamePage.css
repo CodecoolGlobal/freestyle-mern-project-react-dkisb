@@ -114,6 +114,37 @@
   font-size: 1.2rem;
 }
 
+.endGameNavBTNs {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  height: 100vh;
+  text-align: center;
+}
+
+.endGameNavBTNs button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  border-radius: 5px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.endGameNavBTNs button:hover {
+  background-color: #0056b3;
+}
+
+.endGameNavBTNs h1 {
+  font-size: 1.5rem;
+  margin-top: 20px;
+  color: #4caf50;
+}
+
 .ai-enough-button {
   position: absolute;
   top: 5%;
