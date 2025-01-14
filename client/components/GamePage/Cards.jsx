@@ -4,7 +4,7 @@ function Cards({card, playerBalance, onPlayerBalance, dealerBalance, onDealerBal
   //console.log(upperCard);
   const [upperCardData, setUpperCardData] = useState(null);
   const [yourHandIds, setYourHandIds] = useState(yourHand);
-  function yourHandMapping() {
+  function yourHandMapping() {yourHandValue === 20 || yourHandValue ===21
     const handImages = yourHandData.map((item, index) => {
       return <img key={index} src={`http://localhost:3000${item.frontImage}`} width="60px" alt="" />
     })
@@ -27,6 +27,20 @@ function Cards({card, playerBalance, onPlayerBalance, dealerBalance, onDealerBal
       onSetDealerValue(dealerHandValue + upperCard.value)
     }
   }, [upperCard]);
+
+  if (dealerHandValue >= 22 && dealerHand.length > 2) {
+    onSetWinner('player');
+  } else if (enoughClicked && dealerHandValue === 22 && dealerHand.length === 2) {
+    onSetWinner('dealer');
+  } else if (enoughClicked && dealerHandValue >= yourHandValue && dealerHandValue < 22) {
+    onSetWinner('dealer');
+  } else if (enoughClicked && dealerHandValue < yourHandValue) {
+    onSetWinner('player')
+  } else if (yourHandValue >= 22 && yourHand.length > 2) {
+    onSetWinner('dealer');
+  } else if (yourHandValue === 22 && yourHand.length === 2) {
+    onSetWinner('player')
+  }
   
   return (
     <div>
