@@ -79,6 +79,15 @@ async function checkUsernameExist(username) {
   } 
 }
 
+async function checkLogin(name, password) {
+  const hit = await User.find({Username: name, Password: password});
+  if (hit.length === 1) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
 async function updateUser(id, money, games, win, loss) {
   try {
     const user = await User.findByIdAndUpdate(id);
@@ -100,6 +109,7 @@ app.get('/api/cards', async (req, res, next) => {
     return next(error);
   }
 });
+
 app.get('/api/cards/:id', async (req, res, next) => {
   try {
     const id = req.params.id;
@@ -110,12 +120,12 @@ app.get('/api/cards/:id', async (req, res, next) => {
   }
 });
 
-app.post('/api/users', async (req, res, next) => {
+app.post('/api/users/registration', async (req, res, next) => {
   try {
     const name = req.body.username;
     const password = req.body.password;
-    const check = await checkUsernameExist(name);
-    if (check) {
+    const isExist = await checkUsernameExist(name);
+    if (isExist) {
       return res.json('The username already exists');
     } else {
       const newUser = await createUser(name, password);
@@ -126,5 +136,19 @@ app.post('/api/users', async (req, res, next) => {
     return next(error);
   }
 })
+
+app.post('/api/users/login', async (req, res, next) => {
+  const name = req.body.username;
+  console.log(req.body)
+  const password = req.body.password;
+  console.log(password)
+  try {
+    const isValidLogin = await checkLogin(name, password);
+    console.log(isValidLogin)
+    return res.json(isValidLogin)
+  } catch (error) {
+    return next(error);
+  }
+});
 
 app.listen(3000, () => console.log('Server started on http://localhost:3000/'));
