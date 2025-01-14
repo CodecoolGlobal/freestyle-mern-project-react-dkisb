@@ -3,7 +3,6 @@ import DisplayBalances from './DisplayBalances';
 import Cards from './Cards';
 import DisplayButtons from './DisplayButtons';
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 function Gamepage({ randomCards, gameStarted }) {
   const [yourHand, setYourHand] = useState([]);
@@ -21,8 +20,6 @@ function Gamepage({ randomCards, gameStarted }) {
   const [totalBet, setTotalBet] = useState(0);
   const [winner, setWinner] = useState('');
   const [isGameOver, setIsGameOver] = useState(false);
-  const [isGameOn, setIsGameOn] = useState(true);
-  const navigate = useNavigate();
 
   async function handleMore() {
     setYourHand([...yourHand, randomCardIds[0]]);
@@ -58,6 +55,20 @@ function Gamepage({ randomCards, gameStarted }) {
   useEffect(() => {
     if (isGameOver) {
       console.log('Game Over');
+    }
+  }, [isGameOver]);
+
+  useEffect(() => {
+    if (winner === 'player') {
+      setPlayerBalance(playerBalance + totalBet);
+      setTotalBet(0);
+    }
+  }, [isGameOver]);
+
+  useEffect(() => {
+    if (winner === 'dealer') {
+      setDealerBalance(dealerBalance + totalBet);
+      setTotalBet(0);
     }
   }, [isGameOver]);
 
