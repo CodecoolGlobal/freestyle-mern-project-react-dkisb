@@ -82,7 +82,7 @@ async function checkUsernameExist(username) {
 async function checkLogin(name, password) {
   const hit = await User.find({Username: name, Password: password});
   if (hit.length === 1) {
-    return true;
+    return hit[0];
   } else {
     return false;
   }
@@ -143,9 +143,13 @@ app.post('/api/users/login', async (req, res, next) => {
   const password = req.body.password;
   console.log(password)
   try {
-    const isValidLogin = await checkLogin(name, password);
-    console.log(isValidLogin)
-    return res.json(isValidLogin)
+    const validLogin = await checkLogin(name, password);
+    if (validLogin) {
+      return res.json(validLogin)
+    } else {
+      return res.json('Invalid login')
+    }
+    
   } catch (error) {
     return next(error);
   }

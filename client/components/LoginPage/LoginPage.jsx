@@ -1,8 +1,6 @@
 import StartPage from "../StartPage/StartPage";
 import { useState } from "react";
 
-
-
 function LoginPage() {
     const [registerClicked, setRegisterClicked] = useState(false);
     const [userName, setUserName] = useState(null);
@@ -10,6 +8,7 @@ function LoginPage() {
     const [existedUser, setExistedUser] = useState(false);
     const [successfulRegister, setSuccessfulRegister] = useState(false);
     const [rightLogin, setRightLogin] = useState(true);
+    const [activeUser, setActiveUser] = useState(null);
 
     function handleRegister() {
         setRegisterClicked(true);
@@ -27,6 +26,7 @@ function LoginPage() {
         } else {
             setExistedUser(false);
             setSuccessfulRegister(true);
+            setActiveUser(newUser);
         }
     }
 
@@ -37,13 +37,13 @@ function LoginPage() {
             body: JSON.stringify(user),
         });
         const loginUser = await response.json();
-        if (loginUser === false) {
+        if (loginUser === 'Invalid login') {
             setRightLogin(false);
         } else {
             setRightLogin(true);
             setSuccessfulRegister(true);
+            setActiveUser(loginUser);
         }
-        
     }
 
     function handleRegistration(e) {
@@ -93,7 +93,8 @@ function LoginPage() {
             </div>
         </div>) : 
         (<div>
-            {successfulRegister && <StartPage username={userName}/>}
+            {successfulRegister && <StartPage user={activeUser}
+            />}
         </div>)} 
         </div>
         </>

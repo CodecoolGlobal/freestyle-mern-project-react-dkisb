@@ -14,7 +14,10 @@ const userSchema = new Schema({
     type: Number,
     default: 0,
   },
-  Balance: Number,
+  Balance: {
+    type: Number,
+    default: 100,
+  },
   Win: {
     type: Number,
     default: 0,
