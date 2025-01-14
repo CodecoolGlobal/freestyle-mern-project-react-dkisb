@@ -6,7 +6,8 @@ import StartPage from '../StartPage/StartPage';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-function Gamepage({ randomCards, gameStarted }) {
+function Gamepage({ randomCards, gameStarted, user }) {
+  console.log(user)
   const [yourHand, setYourHand] = useState([]);
   const [dealerHand, setDealerHand] = useState([]);
   const [randomCardIds, setRandomCardIds] = useState(randomCards);
@@ -18,7 +19,9 @@ function Gamepage({ randomCards, gameStarted }) {
   const [stopClicked, setStopClicked] = useState(false);
   const [enoughClicked, setEnoughClicked] = useState(false);
   const [dealerBalance, setDealerBalance] = useState(100);
-  const [playerBalance, setPlayerBalance] = useState(100);
+  const [playerBalance, setPlayerBalance] = useState(user.Balance);
+  const [playerWins, setPlayerWins] = useState(user.Win);
+  const [playerLosses, setPlayerLosses] = useState(user.Loss);
   const [totalBet, setTotalBet] = useState(0);
   const [winner, setWinner] = useState('');
   const [isGameOver, setIsGameOver] = useState(false);
@@ -108,6 +111,7 @@ function Gamepage({ randomCards, gameStarted }) {
             onTotalBet={setTotalBet}
             setGameOver={setIsGameOver}
             outcomeMessage={setOutcomeMessage}
+
           />
           <DisplayButtons
             dealerHandValue={dealerHandValue}
