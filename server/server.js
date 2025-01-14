@@ -32,6 +32,17 @@ async function createCard(color, name, value, frontImage) {
   }
 }
 
+async function getRandomDeck() {
+  const deck = await listAllIds();
+  const randomDeck = [];
+  for (let i = 0; i < 32; i++) {
+    const randomNumber = Math.floor(Math.random() * deck.length);
+    randomDeck.push(deck[randomNumber]);
+    deck.splice(randomNumber, 1);
+  }
+  return randomDeck;
+}
+
 async function listAllIds() {
   const cards = await Card.find();
   const ids = cards.map((card) => card._id.toString());
@@ -44,6 +55,7 @@ async function createUser(name, password) {
       Username: name,
       Password: password,
     });
+    return user;
   } catch (error) {
     console.error(error);
   }
@@ -55,6 +67,16 @@ async function deleteUser(id) {
   } catch (error) {
     console.error(error);
   }
+}
+
+async function checkUsernameExist(username) {
+  const hit = await User.find({Username: username});
+  //console.log(hit);
+  if (hit.length > 0) {
+    return true;
+  } else {
+    return false;
+  } 
 }
 
 async function updateUser(id, money, games, win, loss) {
@@ -75,7 +97,7 @@ app.get('/api/cards', async (req, res, next) => {
     const cardIds = await getRandomDeck();
     res.send(cardIds);
   } catch (error) {
-    next(error);
+    return next(error);
   }
 });
 app.get('/api/cards/:id', async (req, res, next) => {
@@ -88,15 +110,21 @@ app.get('/api/cards/:id', async (req, res, next) => {
   }
 });
 
-async function getRandomDeck() {
-  const deck = await listAllIds();
-  const randomDeck = [];
-  for (let i = 0; i < 32; i++) {
-    const randomNumber = Math.floor(Math.random() * deck.length);
-    randomDeck.push(deck[randomNumber]);
-    deck.splice(randomNumber, 1);
+app.post('/api/users', async (req, res, next) => {
+  try {
+    const name = req.body.username;
+    const password = req.body.password;
+    const check = await checkUsernameExist(name);
+    if (check) {
+      return res.json('The username already exists');
+    } else {
+      const newUser = await createUser(name, password);
+      console.log(newUser);
+      return res.json(newUser);
+    }
+  } catch (error) {
+    return next(error);
   }
-  return randomDeck;
-}
+})
 
 app.listen(3000, () => console.log('Server started on http://localhost:3000/'));
