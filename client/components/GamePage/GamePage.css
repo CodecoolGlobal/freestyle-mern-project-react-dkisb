@@ -114,6 +114,37 @@
   font-size: 1.2rem;
 }
 
+.endGameNavBTNs {
+  display: flex; /* Use Flexbox */
+  flex-direction: column; /* Arrange items in a column */
+  align-items: center; /* Center items horizontally */
+  justify-content: center; /* Center items vertically */
+  gap: 20px; /* Add spacing between buttons and the h1 */
+  height: 100vh; /* Make the div take the full height of the viewport */
+  text-align: center; /* Center the text in the h1 */
+}
+
+.endGameNavBTNs button {
+  padding: 10px 20px; /* Add padding to buttons for better size */
+  font-size: 1rem; /* Set button font size */
+  border-radius: 5px; /* Round button corners */
+  border: none; /* Remove default borders */
+  background-color: #007bff; /* Button background color */
+  color: white; /* Button text color */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s ease; /* Smooth hover effect */
+}
+
+.endGameNavBTNs button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+.endGameNavBTNs h1 {
+  font-size: 1.5rem; /* Adjust the size of the message */
+  margin-top: 20px; /* Add space between buttons and the h1 */
+  color: #4caf50; /* Green color for a winning message */
+}
+
 .ai-enough-button {
   position: absolute;
   top: 5%;
