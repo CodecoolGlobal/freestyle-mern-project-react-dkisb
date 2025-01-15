@@ -39,6 +39,7 @@ function AccountUpdater() {
       if (response.ok) {
         const updatedAccount = await response.json();
         console.log('Updated Account:', updatedAccount);
+        navigate('/startpage');
       }
     } catch (error) {
       console.error(error);
@@ -64,7 +65,7 @@ function AccountUpdater() {
         <button type="submit">Update credentials</button>
       </form>
       <button onClick={handleDelete}>Delete Account</button>
-      <button onClick={toHomePage}>Back to home page</button>
+      <button onClick={toHomePage}>Cancel</button>
     </div>
   );
 }

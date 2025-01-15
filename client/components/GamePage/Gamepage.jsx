@@ -5,7 +5,6 @@ import DisplayButtons from './DisplayButtons';
 import { useState, useEffect } from 'react';
 
 function Gamepage({ randomCards, gameStarted, user, dealerMoney }) {
-  console.log(user)
   const [yourHand, setYourHand] = useState([]);
   const [dealerHand, setDealerHand] = useState([]);
   const [randomCardIds, setRandomCardIds] = useState(randomCards);

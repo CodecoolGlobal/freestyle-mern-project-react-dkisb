@@ -10,24 +10,18 @@ function StartPage({ user }) {
   const [card, setCard] = useState(null);
   const [randomCardIds, setRandomCardIds] = useState(null);
   const [userData, setUserData] = useState(user);
-  const location = useLocation();
-
-  const sentUser = location.state;
-  console.log(sentUser);
   const [dealerBalance, setDealerBalance] = useState(100);
-
   const location = useLocation();
   useEffect(() => {
     const userem = location.state;
-    
+
     if (userem) {
-      console.log(userem.Balance)
+      console.log(userem.Balance);
       setUserData(userem);
       setDealerBalance(userem.dealerBalance);
     }
-  }, [location.state])
+  }, [location.state]);
 
-  
   async function handleClick() {
     const response = await fetch('/api/cards');
     const cardIds = await response.json();
@@ -45,12 +39,13 @@ function StartPage({ user }) {
   return (
     <>
       {gameStarted && randomCardIds ? (
-        <Gamepage 
-          randomCards={randomCardIds} 
-          gameStarted={setGameStarted} 
-          user={userData} 
-          onUser={setUserData} 
-          dealerMoney={dealerBalance}/>
+        <Gamepage
+          randomCards={randomCardIds}
+          gameStarted={setGameStarted}
+          user={userData}
+          onUser={setUserData}
+          dealerMoney={dealerBalance}
+        />
       ) : (
         <>
           <div className="start-header">
