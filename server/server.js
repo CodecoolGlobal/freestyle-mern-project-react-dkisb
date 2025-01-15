@@ -70,17 +70,17 @@ async function deleteUser(id) {
 }
 
 async function checkUsernameExist(username) {
-  const hit = await User.find({Username: username});
+  const hit = await User.find({ Username: username });
   //console.log(hit);
   if (hit.length > 0) {
     return true;
   } else {
     return false;
-  } 
+  }
 }
 
 async function checkLogin(name, password) {
-  const hit = await User.find({Username: name, Password: password});
+  const hit = await User.find({ Username: name, Password: password });
   if (hit.length === 1) {
     return hit[0];
   } else {
@@ -88,10 +88,10 @@ async function checkLogin(name, password) {
   }
 }
 
-async function updateUser(id, money, games, win, loss) {
+async function updateUser(id, balance, games, win, loss) {
   try {
     const user = await User.findByIdAndUpdate(id);
-    user.Balance = money;
+    user.Balance = balance;
     user.Games = games;
     user.Win = win;
     user.Loss = loss;
@@ -135,24 +135,43 @@ app.post('/api/users/registration/', async (req, res, next) => {
   } catch (error) {
     return next(error);
   }
-})
+});
 
 app.post('/api/users/login/', async (req, res, next) => {
   const name = req.body.username;
-  console.log(req.body)
+  console.log(req.body);
   const password = req.body.password;
-  console.log(password)
+  console.log(password);
   try {
     const validLogin = await checkLogin(name, password);
     if (validLogin) {
-      return res.json(validLogin)
+      return res.json(validLogin);
     } else {
-      return res.json('Invalid login')
+      return res.json('Invalid login');
     }
-    
   } catch (error) {
     return next(error);
   }
 });
 
+app.put('/api/users/:id', async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { Username, Password } = req.body;
+    console.log(req.body);
+    const updatedUser = await User.findByIdAndUpdate(id, { Username, Password }, { new: true });
+    res.status(200).json(updatedUser);
+  } catch (error) {
+    next(error);
+  }
+});
+app.delete('/api/users/:id', async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const deleted = await User.findByIdAndDelete(id);
+    res.json(deleted);
+  } catch (err) {
+    next(err);
+  }
+});
 app.listen(3000, () => console.log('Server started on http://localhost:3000/'));
