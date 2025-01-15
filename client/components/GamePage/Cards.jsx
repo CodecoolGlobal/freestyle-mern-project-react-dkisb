@@ -40,7 +40,7 @@ function Cards({
   function dealerHandMapping() {
     const handImages = dealerHandData.map((item, index) => {
       if (!enoughClicked && (dealerHandValue < 22 || (dealerHandValue === 22 && dealerHand.length === 2))) {
-        return <img key={`dealer-${index}`} src={`http://localhost:3000${item.backImage}`} width="100px" alt="" />;
+        return <img key={`dealer-${index}`} src={`http://localhost:3000${item.backImage}`} width="60px" alt="" />;
       } else if (enoughClicked || (dealerHandValue > 21 && dealerHand.length > 2)) {
         return <img key={`dealer-${index}`} src={`http://localhost:3000${item.frontImage}`} width="60px" alt="" />;
       }

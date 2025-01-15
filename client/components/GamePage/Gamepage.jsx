@@ -17,9 +17,9 @@ function Gamepage({ randomCards, gameStarted, user }) {
   const [stopClicked, setStopClicked] = useState(false);
   const [enoughClicked, setEnoughClicked] = useState(false);
   const [dealerBalance, setDealerBalance] = useState(100);
-  const [playerBalance, setPlayerBalance] = useState(user.Balance);
-  const [playerWins, setPlayerWins] = useState(user.Win);
-  const [playerLosses, setPlayerLosses] = useState(user.Loss);
+  const [playerBalance, setPlayerBalance] = useState(user?.Balance ?? 100);
+  const [playerWins, setPlayerWins] = useState(user?.Win ?? 0);
+  const [playerLosses, setPlayerLosses] = useState(user?.Loss ?? 0);
   const [totalBet, setTotalBet] = useState(0);
   const [winner, setWinner] = useState('');
   const [isGameOver, setIsGameOver] = useState(false);
