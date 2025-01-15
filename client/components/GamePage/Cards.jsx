@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 function Cards({
   card,
@@ -25,10 +26,12 @@ function Cards({
   setGameOver,
   onGameOver,
   gameStarted,
+  user
 }) {
   const [upperCardData, setUpperCardData] = useState(null);
   const [yourHandIds, setYourHandIds] = useState(yourHand);
   const [outcomeMessage, setOutcomeMessage] = useState('');
+  const [userData, setUserData] = useState(user)
   const navigate = useNavigate();
   function yourHandMapping() {
     yourHandValue === 20 || yourHandValue === 21;
@@ -96,6 +99,7 @@ function Cards({
   function handleNewGame() {
     setGameOver(true);
     gameStarted(false);
+    //setUserData({...userData, Balance: playerBalance})
     navigate('/startpage');
   }
   function handleQuit() {
@@ -138,7 +142,10 @@ function Cards({
           </div>
           <div className="endGameNavBTNs">
             <h1>{outcomeMessage}</h1>
-            <button onClick={handleNewGame}>New Game</button>
+            <Link to='/startpage' state={{...userData, Balance: playerBalance, dealerBalance: dealerBalance}}>
+              <button onClick={handleNewGame}>New Game</button>
+            </Link>
+            
             <button onClick={handleQuit}>Quit and Logout</button>
           </div>
           <div className="players-hand">
