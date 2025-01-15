@@ -57,7 +57,7 @@ function Gamepage({ randomCards, gameStarted, user, dealerMoney }) {
 
   useEffect(() => {
     if (isGameOver) {
-      console.log('Game Over');
+      console.log('game over');
     }
   }, [isGameOver]);
 

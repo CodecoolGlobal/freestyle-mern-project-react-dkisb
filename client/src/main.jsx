@@ -6,6 +6,8 @@ import './index.css';
 import LoginPage from '../components/LoginPage/LoginPage';
 import StartPage from '../components/StartPage/StartPage';
 import Gamepage from '../components/GamePage/Gamepage';
+import AccountPage from '../components/AccountPage/AccountPage';
+import AccountUpdater from '../components/AccountPage/AccountUpdater';
 
 const router = createBrowserRouter([
   {
@@ -19,6 +21,14 @@ const router = createBrowserRouter([
   {
     path: '/gamepage',
     element: <Gamepage />,
+  },
+  {
+    path: '/account',
+    element: <AccountPage />,
+  },
+  {
+    path: '/update/:id',
+    element: <AccountUpdater />,
   },
 ]);
 

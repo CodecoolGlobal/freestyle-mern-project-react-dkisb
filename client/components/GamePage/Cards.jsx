@@ -94,6 +94,7 @@ function Cards({
     setGameOver,
     onGameOver,
     gameStarted,
+    userData,
   ]);
 
   function handleNewGame() {
@@ -145,7 +146,6 @@ function Cards({
             <Link to='/startpage' state={{...userData, Balance: playerBalance, dealerBalance: dealerBalance}}>
               <button onClick={handleNewGame}>New Game</button>
             </Link>
-            
             <button onClick={handleQuit}>Quit and Logout</button>
           </div>
           <div className="players-hand">

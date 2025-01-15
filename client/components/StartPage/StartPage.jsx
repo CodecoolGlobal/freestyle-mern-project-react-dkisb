@@ -2,12 +2,18 @@ import './StartPage.css';
 import { useState, useEffect } from 'react';
 import Gamepage from '../GamePage/Gamepage';
 import { useLocation } from 'react-router-dom';
+import AccountPage from '../AccountPage/AccountPage';
+import { Link } from 'react-router-dom';
 
-function StartPage({user}) {
+function StartPage({ user }) {
   const [gameStarted, setGameStarted] = useState(false);
   const [card, setCard] = useState(null);
   const [randomCardIds, setRandomCardIds] = useState(null);
   const [userData, setUserData] = useState(user);
+  const location = useLocation();
+
+  const sentUser = location.state;
+  console.log(sentUser);
   const [dealerBalance, setDealerBalance] = useState(100);
 
   const location = useLocation();
@@ -32,6 +38,9 @@ function StartPage({user}) {
     setCard(cardData);
     setGameStarted(true);
   }
+  function handleHelpClick() {
+    window.open('https://hu.wikipedia.org/wiki/Huszonegyes');
+  }
 
   return (
     <>
@@ -53,9 +62,11 @@ function StartPage({user}) {
               Start Game
             </button>
             <div className="bottom-buttons">
-              <button>Rules</button>
-              <button>Account</button>
-              <button>Help</button>
+              <button onClick={handleHelpClick}>Rules</button>
+              <Link to={'/account'} state={userData}>
+                <button>Account</button>
+              </Link>
+              <button onClick={handleHelpClick}>Help</button>
             </div>
           </div>
         </>
