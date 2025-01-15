@@ -4,8 +4,8 @@ import Cards from './Cards';
 import DisplayButtons from './DisplayButtons';
 import { useState, useEffect } from 'react';
 
-function Gamepage({ randomCards, gameStarted, user, onUser }) {
-  console.log(user);
+function Gamepage({ randomCards, gameStarted, user, dealerMoney }) {
+  console.log(user)
   const [yourHand, setYourHand] = useState([]);
   const [dealerHand, setDealerHand] = useState([]);
   const [randomCardIds, setRandomCardIds] = useState(randomCards);
@@ -16,7 +16,7 @@ function Gamepage({ randomCards, gameStarted, user, onUser }) {
   const [dealerHandValue, setDealerHandValue] = useState(0);
   const [stopClicked, setStopClicked] = useState(false);
   const [enoughClicked, setEnoughClicked] = useState(false);
-  const [dealerBalance, setDealerBalance] = useState(100);
+  const [dealerBalance, setDealerBalance] = useState(dealerMoney ?? 100);
   const [playerBalance, setPlayerBalance] = useState(user?.Balance ?? 100);
   const [playerWins, setPlayerWins] = useState(user?.Win ?? 0);
   const [playerLosses, setPlayerLosses] = useState(user?.Loss ?? 0);
@@ -102,7 +102,7 @@ function Gamepage({ randomCards, gameStarted, user, onUser }) {
         setGameOver={setIsGameOver}
         onGameOver={isGameOver}
         gameStarted={gameStarted}
-        userData={user}
+        user={user}
       />
       <DisplayButtons
         dealerHandValue={dealerHandValue}

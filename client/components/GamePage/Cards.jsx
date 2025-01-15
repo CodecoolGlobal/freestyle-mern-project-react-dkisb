@@ -26,11 +26,12 @@ function Cards({
   setGameOver,
   onGameOver,
   gameStarted,
-  userData,
+  user
 }) {
   const [upperCardData, setUpperCardData] = useState(null);
   const [yourHandIds, setYourHandIds] = useState(yourHand);
   const [outcomeMessage, setOutcomeMessage] = useState('');
+  const [userData, setUserData] = useState(user)
   const navigate = useNavigate();
   function yourHandMapping() {
     yourHandValue === 20 || yourHandValue === 21;
@@ -99,6 +100,8 @@ function Cards({
   function handleNewGame() {
     setGameOver(true);
     gameStarted(false);
+    //setUserData({...userData, Balance: playerBalance})
+    navigate('/startpage');
   }
   function handleQuit() {
     setGameOver(true);
@@ -140,7 +143,7 @@ function Cards({
           </div>
           <div className="endGameNavBTNs">
             <h1>{outcomeMessage}</h1>
-            <Link to={'/startpage'} state={userData}>
+            <Link to='/startpage' state={{...userData, Balance: playerBalance, dealerBalance: dealerBalance}}>
               <button onClick={handleNewGame}>New Game</button>
             </Link>
             <button onClick={handleQuit}>Quit and Logout</button>
