@@ -120,7 +120,7 @@ app.get('/api/cards/:id', async (req, res, next) => {
   }
 });
 
-app.post('/api/users/registration', async (req, res, next) => {
+app.post('/api/users/registration/', async (req, res, next) => {
   try {
     const name = req.body.username;
     const password = req.body.password;
@@ -137,7 +137,7 @@ app.post('/api/users/registration', async (req, res, next) => {
   }
 })
 
-app.post('/api/users/login', async (req, res, next) => {
+app.post('/api/users/login/', async (req, res, next) => {
   const name = req.body.username;
   console.log(req.body)
   const password = req.body.password;

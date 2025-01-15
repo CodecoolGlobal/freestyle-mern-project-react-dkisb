@@ -1,5 +1,6 @@
 import StartPage from "../StartPage/StartPage";
 import { useState } from "react";
+import './LoginPage.css'
 
 function LoginPage() {
     const [registerClicked, setRegisterClicked] = useState(false);
@@ -15,7 +16,7 @@ function LoginPage() {
     }
 
     async function postRegistration(user) {
-        const response = await fetch('/api/users/registration', {
+        const response = await fetch('/api/users/registration/', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(user),
@@ -31,7 +32,7 @@ function LoginPage() {
     }
 
     async function postLogin(user) {
-        const response = await fetch('/api/users/login', {
+        const response = await fetch('/api/users/login/', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(user),
@@ -59,8 +60,9 @@ function LoginPage() {
     }
 
     return (
-        <><div>{!successfulRegister ? (<div>
-            <h2>Welcome to the 21 card game!</h2>
+        <><div>{!successfulRegister ? (
+            <div className="heading">
+                <h1>Welcome to the 21 card game!</h1>
             <div>
                 <div>
                     {!rightLogin &&
@@ -74,7 +76,7 @@ function LoginPage() {
                             <input onChange={(e) => setPassword(e.target.value)} type="password" placeholder='password' autoComplete="off" /><br />
                             <button type="submit">Login</button>
                         </form>
-                        <h4>Don't you have an account yet?</h4>
+                        <h4>Don't you have an account yet?</h4><br />
                         <button onClick={handleRegister}>Register</button>
                     </div>}
             </div>
