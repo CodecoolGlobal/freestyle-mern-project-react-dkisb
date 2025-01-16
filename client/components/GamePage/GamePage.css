@@ -16,6 +16,7 @@
   padding: 10px;
   font-size: 1.2rem;
   border-radius: 5px;
+  color: ivory;
 }
 
 .total-bet {
@@ -28,6 +29,7 @@
   padding: 10px;
   font-size: 1.2rem;
   border-radius: 5px;
+  color: ivory;
 }
 
 .players-balance {
@@ -39,6 +41,7 @@
   padding: 10px;
   font-size: 1.2rem;
   border-radius: 5px;
+  color: ivory;
 }
 .bet-input {
   position: absolute;
@@ -54,30 +57,36 @@
 
 .dealers-hand {
   position: absolute;
-  top: 5%;
+  top: 6%;
   left: 50%;
   transform: translateX(-50%);
   width: 40%;
   text-align: center;
+  color: ivory;
 }
 
 .dealers-hand img {
-  height: auto;
+  width: 100px;
   margin-right: 10px;
 }
 
 .players-hand {
   position: absolute;
-  bottom: 10%;
+  bottom: 1%;
   left: 50%;
   transform: translateX(-50%);
   width: 40%;
   text-align: center;
+  color: ivory;
 }
 
 .players-hand img {
-  height: auto;
+  width: 100px;
   margin-right: 10px;
+}
+
+.card-backside {
+  border-radius: 8px;
 }
 
 .help-button {
@@ -120,7 +129,7 @@
   align-items: center;
   justify-content: center;
   gap: 20px;
-  height: 100vh;
+  height: 800px;
   text-align: center;
 }
 
@@ -129,10 +138,9 @@
   font-size: 1rem;
   border-radius: 5px;
   border: none;
-  background-color: #007bff;
-  color: white;
+  background-color: black;
+  color: ivory;
   cursor: pointer;
-  transition: background-color 0.3s ease;
 }
 
 .endGameNavBTNs button:hover {
@@ -141,8 +149,8 @@
 
 .endGameNavBTNs h1 {
   font-size: 1.5rem;
-  margin-top: 20px;
-  color: #4caf50;
+  margin-top: 15px;
+  color: ivory;
 }
 
 .ai-enough-button {
@@ -182,10 +190,12 @@
   right: 10%;
   transform: translate(-50%, -50%);
   text-align: center;
+  color: ivory;
 }
 
 .card-stack img {
-  width: 150px;
+  width: 120px;
+  border-radius: 8px;
 }
 
 .card-stack p {

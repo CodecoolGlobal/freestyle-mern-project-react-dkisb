@@ -2,7 +2,6 @@ import './StartPage.css';
 import { useState, useEffect } from 'react';
 import Gamepage from '../GamePage/Gamepage';
 import { useLocation } from 'react-router-dom';
-import AccountPage from '../AccountPage/AccountPage';
 import { Link } from 'react-router-dom';
 
 async function patchUserData(id, update) {
@@ -23,13 +22,10 @@ function StartPage({ user }) {
   const [dealerBalance, setDealerBalance] = useState(100);
   const location = useLocation();
   useEffect(() => {
-    const userem = location.state;
-
-    if (userem) {
-      //console.log(userem);
-      setUserData(userem);
-      setDealerBalance(userem.dealerBalance);
-      //patchUserData(userem._id, {Balance: userem.Balance})
+    const loggedInUser = location.state;
+    if (loggedInUser) {
+      setUserData(loggedInUser);
+      setDealerBalance(loggedInUser.dealerBalance);
     }
   }, [location.state]);
 
