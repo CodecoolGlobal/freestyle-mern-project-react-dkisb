@@ -1,0 +1,16 @@
+.user-account {
+  position: absolute;
+  text-align: center;
+  color: ivory;
+  left: 40%;
+  top: 25%;
+}
+.user-details {
+  margin: 30px;
+}
+
+.user-buttons button {
+  font-size: 20px;
+  border-radius: 8px;
+  margin: 10px;
+}

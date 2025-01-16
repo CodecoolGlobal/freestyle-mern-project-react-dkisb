@@ -1,24 +1,57 @@
-h1 {
-    display: inline-block;
-    background-color: rgba(255, 255, 255, 0.65);
-    margin-bottom: 40px;
+.error-message {
+  color: red;
 }
 
-h2 {
-    display: inline-block;
-    background-color: rgba(255, 255, 255, 0.65);
-    margin-bottom: 20px;
+.game-name {
+  margin-top: 35px;
+  color: ivory;
+  text-align: center;
 }
 
-.heading {
-    text-align: center;
+.user-page {
+  text-align: center;
 }
 
-h4 {
-    display: inline-block;
-    background-color: rgba(255, 255, 255, 0.65);
+.login-form {
+  color: ivory;
+  font-size: 20px;
+}
+.login-form button {
+  margin: 10px;
+  font-size: 30px;
+  border-radius: 10px;
+}
+.login-form input {
+  font-size: large;
+  margin: 5px;
 }
 
-form {
-    margin-bottom: 40px;
+.register-user {
+  color: ivory;
+}
+
+.register-user button {
+  border-radius: 10px;
+  font-size: 30px;
+  margin: auto;
+}
+.register-new {
+  color: ivory;
+  font-size: 35px;
+  margin: 45px;
+}
+
+.registration-form {
+  color: ivory;
+  margin: auto;
+}
+.registration-form button {
+  border-radius: 10px;
+  font-size: 20px;
+  margin: auto;
+}
+
+.registration-form input {
+  font-size: large;
+  margin: 5px;
 }

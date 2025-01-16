@@ -36,16 +36,16 @@ function Cards({
   function yourHandMapping() {
     yourHandValue === 20 || yourHandValue === 21;
     const handImages = yourHandData.map((item, index) => {
-      return <img key={index} src={`http://localhost:3000${item.frontImage}`} width="60px" alt="" />;
+      return <img key={index} src={`http://localhost:3000${item.frontImage}`} alt="" />;
     });
     return handImages;
   }
   function dealerHandMapping() {
     const handImages = dealerHandData.map((item, index) => {
       if (!enoughClicked && (dealerHandValue < 22 || (dealerHandValue === 22 && dealerHand.length === 2))) {
-        return <img key={`dealer-${index}`} src={`http://localhost:3000${item.backImage}`} width="60px" alt="" />;
+        return <img className="card-backside" key={`dealer-${index}`} src={`http://localhost:3000${item.backImage}`} />;
       } else if (enoughClicked || (dealerHandValue > 21 && dealerHand.length > 2)) {
-        return <img key={`dealer-${index}`} src={`http://localhost:3000${item.frontImage}`} width="60px" alt="" />;
+        return <img key={`dealer-${index}`} src={`http://localhost:3000${item.frontImage}`} />;
       }
     });
     return handImages;
@@ -114,7 +114,9 @@ function Cards({
         <div>
           <div className="dealers-hand">
             {dealerHandMapping()}
-            <p>Hand of the dealer</p>
+            <p>
+              <strong>Dealer</strong>
+            </p>
             {(enoughClicked || (dealerHandValue > 21 && dealerHand.length > 2)) && (
               <p>
                 <strong>Value: {dealerHandValue}</strong>
@@ -123,13 +125,15 @@ function Cards({
           </div>
           <div className="players-hand">
             {yourHandMapping()}
-            <p>Your hand</p>
+            <p>
+              <strong>{user.Username}</strong>
+            </p>
             <p>
               <strong>Value: {yourHandValue}</strong>
             </p>
           </div>
           <div className="card-stack">
-            <img src={`http://localhost:3000/Back.jpg`} width="150px" alt="" />
+            <img src={`http://localhost:3000/Back.jpg`} alt="backside of the cards" />
             <p>Card Stack ({numberOfCards} remaining)</p>
           </div>
         </div>
@@ -137,8 +141,14 @@ function Cards({
         <div>
           <div className="dealers-hand">
             {dealerHandMapping()}
-            <p>Hand of the dealer</p>
-            {(enoughClicked || (dealerHandValue > 21 && dealerHand.length > 2)) && <p>Value: {dealerHandValue}</p>}
+            <p>
+              <strong>Hand of the dealer</strong>
+            </p>
+            {(enoughClicked || (dealerHandValue > 21 && dealerHand.length > 2)) && (
+              <p>
+                <strong>Value: {dealerHandValue}</strong>
+              </p>
+            )}
           </div>
           <div className="endGameNavBTNs">
             <h1>{outcomeMessage}</h1>
@@ -149,12 +159,18 @@ function Cards({
           </div>
           <div className="players-hand">
             {yourHandMapping()}
-            <p>Your hand</p>
-            <p>Value: {yourHandValue}</p>
+            <p>
+              <strong>{user.Username}</strong>
+            </p>
+            <p>
+              <strong>Value: {yourHandValue}</strong>
+            </p>
           </div>
           <div className="card-stack">
-            <img src={`http://localhost:3000/Back.jpg`} width="150px" alt="" />
-            <p>Card Stack ({numberOfCards} remaining)</p>
+            <img src={`http://localhost:3000/Back.jpg`} alt="backside of the cards" />
+            <p>
+              <strong>Card Stack ({numberOfCards} remaining) </strong>
+            </p>
           </div>
         </div>
       )}
