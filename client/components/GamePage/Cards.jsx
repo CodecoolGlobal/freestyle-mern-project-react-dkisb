@@ -2,6 +2,16 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
+async function patchUser(id, update) {
+  const response = await fetch(`/api/user/${id}`, {
+  method: 'PATCH',
+  headers: {'Content-Type': 'application/json'},
+  body: JSON.stringify(update),
+})
+const updatedUser = await response.json();
+return updatedUser;
+}
+
 function Cards({
   card,
   playerBalance,
@@ -27,6 +37,7 @@ function Cards({
   onGameOver,
   gameStarted,
   user,
+  winner
 }) {
   const [upperCardData, setUpperCardData] = useState(null);
   const [yourHandIds, setYourHandIds] = useState(yourHand);
@@ -97,9 +108,10 @@ function Cards({
     userData,
   ]);
 
-  function handleNewGame() {
+  async function handleNewGame() {
     setGameOver(true);
     gameStarted(false);
+    await patchUser(userData._id, {Balance: playerBalance, Games: userData.Games + 1, ...(winner === 'player' ? {Win: userData.Win + 1} : {Loss: userData.Loss + 1})})
     navigate('/startpage');
   }
   function handleQuit() {

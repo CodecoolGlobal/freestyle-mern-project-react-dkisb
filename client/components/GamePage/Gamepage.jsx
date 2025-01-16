@@ -104,6 +104,7 @@ function Gamepage({ randomCards, gameStarted, user, dealerMoney }) {
         onGameOver={isGameOver}
         gameStarted={gameStarted}
         user={user}
+        winner={winner}
       />
       <DisplayButtons
         dealerHandValue={dealerHandValue}
