@@ -118,7 +118,16 @@ function LoginPage() {
             </div>
           </div>
         ) : (
-          <div>{successfulRegister && <StartPage user={activeUser} />}</div>
+          <div>
+            {successfulRegister && (
+              <StartPage
+                user={activeUser}
+                onLoggedIn={setIsLoggedIn}
+                onSuccessfulRegister={setSuccessfulRegister}
+                onActiveUser={setActiveUser}
+              />
+            )}
+          </div>
         )}
       </div>
     </>

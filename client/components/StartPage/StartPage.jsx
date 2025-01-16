@@ -7,14 +7,14 @@ import { Link } from 'react-router-dom';
 async function patchUserData(id, update) {
   const response = await fetch(`/api/user/${id}`, {
     method: 'PATCH',
-    headers: {'Content-Type': 'application/json'},
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(update),
   });
   const updatedUser = await response.json();
   return updatedUser;
 }
 
-function StartPage({ user }) {
+function StartPage({ user, onLoggedIn, onRightLogin, onSuccessfulRegister, onActiveUser }) {
   const [gameStarted, setGameStarted] = useState(false);
   const [card, setCard] = useState(null);
   const [randomCardIds, setRandomCardIds] = useState(null);
@@ -52,6 +52,9 @@ function StartPage({ user }) {
           user={userData}
           onUser={setUserData}
           dealerMoney={dealerBalance}
+          onLoggedIn={onLoggedIn}
+          onSuccessfulRegister={onSuccessfulRegister}
+          onActiveUser={onActiveUser}
         />
       ) : (
         <>

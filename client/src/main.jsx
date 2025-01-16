@@ -8,11 +8,13 @@ import StartPage from '../components/StartPage/StartPage';
 import Gamepage from '../components/GamePage/Gamepage';
 import AccountPage from '../components/AccountPage/AccountPage';
 import AccountUpdater from '../components/AccountPage/AccountUpdater';
+import ErrorPage from './ErrorPage';
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <LoginPage />,
+    errorElement: <ErrorPage />,
   },
   {
     path: '/startpage',
