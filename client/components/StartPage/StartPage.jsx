@@ -2,7 +2,6 @@ import './StartPage.css';
 import { useState, useEffect } from 'react';
 import Gamepage from '../GamePage/Gamepage';
 import { useLocation } from 'react-router-dom';
-import AccountPage from '../AccountPage/AccountPage';
 import { Link } from 'react-router-dom';
 
 function StartPage({ user }) {
@@ -13,12 +12,11 @@ function StartPage({ user }) {
   const [dealerBalance, setDealerBalance] = useState(100);
   const location = useLocation();
   useEffect(() => {
-    const userem = location.state;
+    const loggedInUser = location.state;
 
-    if (userem) {
-      console.log(userem.Balance);
-      setUserData(userem);
-      setDealerBalance(userem.dealerBalance);
+    if (loggedInUser) {
+      setUserData(loggedInUser);
+      setDealerBalance(loggedInUser.dealerBalance);
     }
   }, [location.state]);
 

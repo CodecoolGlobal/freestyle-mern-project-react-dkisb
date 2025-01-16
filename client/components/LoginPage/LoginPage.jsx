@@ -65,12 +65,14 @@ function LoginPage() {
     <>
       <div>
         {!successfulRegister ? (
-          <div className="heading">
-            <h1>Welcome to the 21 card game!</h1>
+          <div className="user-page">
+            <h1 className="game-name">Welcome to the 21 card game!</h1>
             <div>
-              <div>{!rightLogin && <h2>Wrong username or password. Please try again!</h2>}</div>
+              <div className="error-message">
+                {!rightLogin && <h2>Wrong username or password. Please try again!</h2>}
+              </div>
               {!registerClicked && (
-                <div>
+                <div className="login-form">
                   <h2>Please log in!</h2>
                   <form onSubmit={handleLogin}>
                     <input onChange={(e) => setUserName(e.target.value)} type="text" placeholder="username" />
@@ -84,21 +86,23 @@ function LoginPage() {
                     <br />
                     <button type="submit">Login</button>
                   </form>
-                  <h4>Don't you have an account yet?</h4>
-                  <br />
-                  <button onClick={handleRegister}>Register</button>
+                  <div className="register-user">
+                    <h4 className="register-new">Don&apos;t have an account yet?</h4>
+                    <button onClick={handleRegister}>Register</button>
+                  </div>
                 </div>
               )}
             </div>
 
             {registerClicked && existedUser && (
-              <div>
+              <div className="error-message">
                 <h2>This user already exists. Try a new name! </h2>
               </div>
             )}
-            <div>
+            <div className="registration-form">
               {registerClicked && !successfulRegister && (
                 <form onSubmit={handleRegistration}>
+                  <h2>Register to our site</h2>
                   <input onChange={(e) => setUserName(e.target.value)} type="text" placeholder="username" />
                   <br />
                   <input
@@ -108,7 +112,7 @@ function LoginPage() {
                     autoComplete="off"
                   />
                   <br />
-                  <button type="submit">Send</button>
+                  <button type="submit">Register</button>
                 </form>
               )}
             </div>

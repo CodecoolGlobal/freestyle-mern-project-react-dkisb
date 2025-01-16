@@ -32,7 +32,7 @@ function Gamepage({ randomCards, gameStarted, user, dealerMoney }) {
     const cardData = await response.json();
     setUpperCardData(cardData);
     setYourHandData([...yourHandData, cardData]);
-    setBetSubmitClicked(false)
+    setBetSubmitClicked(false);
   }
 
   async function handleAiMore() {
@@ -78,7 +78,7 @@ function Gamepage({ randomCards, gameStarted, user, dealerMoney }) {
 
   return (
     <div>
-      <DisplayBalances dealerMax={dealerBalance} playerMax={playerBalance} currentTotal={totalBet} />
+      <DisplayBalances dealerMax={dealerBalance} playerMax={playerBalance} currentTotal={totalBet} currentUser={user} />
       <Cards
         yourHandValue={yourHandValue}
         dealerHandValue={dealerHandValue}
