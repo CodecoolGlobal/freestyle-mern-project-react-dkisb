@@ -165,6 +165,12 @@ app.put('/api/users/:id', async (req, res, next) => {
     next(error);
   }
 });
+
+// app.patch('/api/users/:id', (req, res) => {
+//   console.log(req.params.id);
+//   console.log(req.body);
+// })
+
 app.delete('/api/users/:id', async (req, res, next) => {
   try {
     const { id } = req.params;

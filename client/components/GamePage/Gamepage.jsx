@@ -22,6 +22,7 @@ function Gamepage({ randomCards, gameStarted, user, dealerMoney }) {
   const [totalBet, setTotalBet] = useState(0);
   const [winner, setWinner] = useState('');
   const [isGameOver, setIsGameOver] = useState(false);
+  const [betSubmitClicked, setBetSubmitClicked] = useState(false);
 
   async function handleMore() {
     setYourHand([...yourHand, randomCardIds[0]]);
@@ -31,6 +32,7 @@ function Gamepage({ randomCards, gameStarted, user, dealerMoney }) {
     const cardData = await response.json();
     setUpperCardData(cardData);
     setYourHandData([...yourHandData, cardData]);
+    setBetSubmitClicked(false)
   }
 
   async function handleAiMore() {
@@ -119,6 +121,8 @@ function Gamepage({ randomCards, gameStarted, user, dealerMoney }) {
         onBet={setTotalBet}
         onSetDealer={setDealerBalance}
         onSetPlayer={setPlayerBalance}
+        betSubmitClicked={betSubmitClicked}
+        onSubmitClicked={setBetSubmitClicked}
       />
     </div>
   );

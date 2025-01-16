@@ -20,9 +20,12 @@ function DisplayButtons({
   dealerMax,
   playerMax,
   currentTotal,
+  betSubmitClicked,
+  onSubmitClicked
 }) {
   const [showBetInput, setShowBetInput] = useState(false);
   const [betAmount, setBetAmount] = useState(0);
+  
   let maxBalance = playerMax;
 
   const handleRaiseBetClick = () => {
@@ -38,13 +41,15 @@ function DisplayButtons({
     }
   }
 
-  const handlePlaceBet = () => {
+  const handlePlaceBet = (e) => {
+    e.preventDefault();
     if (betAmount > 0) {
       setShowBetInput(false);
       setBetAmount(0);
       onBet(currentTotal + betAmount * 2);
       onSetDealer(dealerMax - betAmount);
       onSetPlayer(playerMax - betAmount);
+      onSubmitClicked(true)
     } else {
       alert('Please enter a valid bet amount.');
     }
@@ -55,12 +60,15 @@ function DisplayButtons({
       <div className="game-focused-buttons">
         {(yourHandValue < 20 && !stopClicked) && <button onClick={onHandleMore}>More</button>}
         {yourHandValue < 20 && !stopClicked && <button onClick={handleRaiseBetClick}>Raise bet</button>}
-        {yourHandValue >= 15 && yourHandValue < 22 && !stopClicked && !(yourHandValue === 22 && yourHandValue.length === 2) && <button onClick={onHandleStop}>Enough</button>}
+        {yourHandValue >= 15 && yourHandValue < 22 && !stopClicked && !(yourHandValue === 22 && yourHandValue.length === 2) && !betSubmitClicked && <button onClick={onHandleStop}>Enough</button>}
       </div>
       {showBetInput && (
         <div className="bet-input">
-          <input type="text" placeholder="Enter your bet" value={betAmount} onChange={handleChange} max={maxBalance} />
-          <button onClick={handlePlaceBet}>Place Bet</button>
+          <form onSubmit={handlePlaceBet}>
+            <input type="text" placeholder="Enter your bet" value={betAmount} onChange={handleChange} max={maxBalance} />
+            <button>Place Bet</button>
+          </form>
+
         </div>
       )}
       <div className="help-button">
