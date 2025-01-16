@@ -5,6 +5,16 @@ import { useLocation } from 'react-router-dom';
 import AccountPage from '../AccountPage/AccountPage';
 import { Link } from 'react-router-dom';
 
+async function patchUserData(id, update) {
+  const response = await fetch(`/api/user/${id}`, {
+    method: 'PATCH',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(update),
+  });
+  const updatedUser = await response.json();
+  return updatedUser;
+}
+
 function StartPage({ user }) {
   const [gameStarted, setGameStarted] = useState(false);
   const [card, setCard] = useState(null);
@@ -16,9 +26,10 @@ function StartPage({ user }) {
     const userem = location.state;
 
     if (userem) {
-      console.log(userem.Balance);
+      //console.log(userem);
       setUserData(userem);
       setDealerBalance(userem.dealerBalance);
+      //patchUserData(userem._id, {Balance: userem.Balance})
     }
   }, [location.state]);
 

@@ -158,7 +158,7 @@ app.put('/api/users/:id', async (req, res, next) => {
   try {
     const { id } = req.params;
     const { Username, Password } = req.body;
-    console.log(req.body);
+    //console.log(req.body);
     const updatedUser = await User.findByIdAndUpdate(id, { Username, Password }, { new: true });
     res.status(200).json(updatedUser);
   } catch (error) {
@@ -166,10 +166,13 @@ app.put('/api/users/:id', async (req, res, next) => {
   }
 });
 
-// app.patch('/api/users/:id', (req, res) => {
-//   console.log(req.params.id);
-//   console.log(req.body);
-// })
+
+app.patch('/api/user/:id', async (req, res) => {
+  console.log(req.params.id);
+  console.log(req.body);
+  const comingData = req.body;
+  const user = await User.findByIdAndUpdate(req.params.id, {Balance: comingData.Balance, Games: comingData.Games, Win: comingData.Win, Loss: comingData.Loss});
+})
 
 app.delete('/api/users/:id', async (req, res, next) => {
   try {
