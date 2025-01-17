@@ -142,6 +142,7 @@ app.patch("/api/user/:id", async (req, res, next) => {
       Win: comingData.Win,
       Loss: comingData.Loss,
     });
+    updatedUser.save();
     return res.json(updatedUser);
   } catch (error) {
     return next(error);
