@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 async function patchUser(id, update) {
   const response = await fetch(`/api/user/${id}`, {
@@ -34,52 +34,25 @@ function Cards({
   user,
   winner,
   onLoggedIn,
-  onRightLogin,
   onSuccessfulRegister,
   onActiveUser,
 }) {
-  const [upperCardData, setUpperCardData] = useState(null);
-  const [yourHandIds, setYourHandIds] = useState(yourHand);
-  const [outcomeMessage, setOutcomeMessage] = useState("");
+  const [outcomeMessage, setOutcomeMessage] = useState('');
   const [userData, setUserData] = useState(user);
   const navigate = useNavigate();
   function yourHandMapping() {
     yourHandValue === 20 || yourHandValue === 21;
     const handImages = yourHandData.map((item, index) => {
-      return (
-        <img
-          key={index}
-          src={`http://localhost:3000${item.frontImage}`}
-          alt=""
-        />
-      );
+      return <img key={index} src={`http://localhost:3000${item.frontImage}`} alt="" />;
     });
     return handImages;
   }
   function dealerHandMapping() {
     const handImages = dealerHandData.map((item, index) => {
-      if (
-        !enoughClicked &&
-        (dealerHandValue < 22 ||
-          (dealerHandValue === 22 && dealerHand.length === 2))
-      ) {
-        return (
-          <img
-            className="card-backside"
-            key={`dealer-${index}`}
-            src={`http://localhost:3000${item.backImage}`}
-          />
-        );
-      } else if (
-        enoughClicked ||
-        (dealerHandValue > 21 && dealerHand.length > 2)
-      ) {
-        return (
-          <img
-            key={`dealer-${index}`}
-            src={`http://localhost:3000${item.frontImage}`}
-          />
-        );
+      if (!enoughClicked && (dealerHandValue < 22 || (dealerHandValue === 22 && dealerHand.length === 2))) {
+        return <img className="card-backside" key={`dealer-${index}`} src={`http://localhost:3000${item.backImage}`} />;
+      } else if (enoughClicked || (dealerHandValue > 21 && dealerHand.length > 2)) {
+        return <img key={`dealer-${index}`} src={`http://localhost:3000${item.frontImage}`} />;
       }
     });
     return handImages;
@@ -94,37 +67,29 @@ function Cards({
 
   useEffect(() => {
     if (dealerHandValue >= 22 && dealerHand.length > 2) {
-      onSetWinner("player");
+      onSetWinner('player');
       setGameOver(true);
-      setOutcomeMessage("Congratulation, you won!");
-    } else if (
-      enoughClicked &&
-      dealerHandValue === 22 &&
-      dealerHand.length === 2
-    ) {
-      onSetWinner("dealer");
+      setOutcomeMessage('Congratulation, you won!');
+    } else if (enoughClicked && dealerHandValue === 22 && dealerHand.length === 2) {
+      onSetWinner('dealer');
       setGameOver(true);
-      setOutcomeMessage("FIRE! Sorry, you lost!");
-    } else if (
-      enoughClicked &&
-      dealerHandValue >= yourHandValue &&
-      dealerHandValue < 22
-    ) {
-      onSetWinner("dealer");
+      setOutcomeMessage('FIRE! Sorry, you lost!');
+    } else if (enoughClicked && dealerHandValue >= yourHandValue && dealerHandValue < 22) {
+      onSetWinner('dealer');
       setGameOver(true);
-      setOutcomeMessage("Sorry, you lost!");
+      setOutcomeMessage('Sorry, you lost!');
     } else if (enoughClicked && dealerHandValue < yourHandValue) {
-      onSetWinner("player");
+      onSetWinner('player');
       setGameOver(true);
-      setOutcomeMessage("Congratulation, you won!");
+      setOutcomeMessage('Congratulation, you won!');
     } else if (yourHandValue >= 22 && yourHand.length > 2) {
-      onSetWinner("dealer");
+      onSetWinner('dealer');
       setGameOver(true);
-      setOutcomeMessage("Sorry, you lost!");
+      setOutcomeMessage('Sorry, you lost!');
     } else if (yourHandValue === 22 && yourHand.length === 2) {
-      onSetWinner("player");
+      onSetWinner('player');
       setGameOver(true);
-      setOutcomeMessage("FIRE! Congratulation, you won!");
+      setOutcomeMessage('FIRE! Congratulation, you won!');
     }
   }, [
     dealerHandValue,
@@ -145,11 +110,12 @@ function Cards({
     await patchUser(userData._id, {
       Balance: playerBalance,
       Games: userData.Games + 1,
-      ...(winner === "player"
-        ? { Win: userData.Win + 1 }
-        : { Loss: userData.Loss + 1 }),
+      ...(winner === 'player' ? { Win: userData.Win + 1 } : { Loss: userData.Loss + 1 }),
     });
-    navigate("/startpage");
+    onLoggedIn(true);
+    onSuccessfulRegister(true);
+    onActiveUser(userData);
+    navigate('/startpage');
   }
 
   async function handleQuit() {
@@ -158,9 +124,7 @@ function Cards({
     await patchUser(userData._id, {
       Balance: playerBalance,
       Games: userData.Games + 1,
-      ...(winner === "player"
-        ? { Win: userData.Win + 1 }
-        : { Loss: userData.Loss + 1 }),
+      ...(winner === 'player' ? { Win: userData.Win + 1 } : { Loss: userData.Loss + 1 }),
     });
     onLoggedIn(false);
     onSuccessfulRegister(false);
@@ -177,8 +141,7 @@ function Cards({
             <p>
               <strong>Dealer</strong>
             </p>
-            {(enoughClicked ||
-              (dealerHandValue > 21 && dealerHand.length > 2)) && (
+            {(enoughClicked || (dealerHandValue > 21 && dealerHand.length > 2)) && (
               <p>
                 <strong>Value: {dealerHandValue}</strong>
               </p>
@@ -194,10 +157,7 @@ function Cards({
             </p>
           </div>
           <div className="card-stack">
-            <img
-              src={`http://localhost:3000/Back.jpg`}
-              alt="backside of the cards"
-            />
+            <img src={`http://localhost:3000/Back.jpg`} alt="backside of the cards" />
             <p>Card Stack ({numberOfCards} remaining)</p>
           </div>
         </div>
@@ -208,8 +168,7 @@ function Cards({
             <p>
               <strong>Hand of the dealer</strong>
             </p>
-            {(enoughClicked ||
-              (dealerHandValue > 21 && dealerHand.length > 2)) && (
+            {(enoughClicked || (dealerHandValue > 21 && dealerHand.length > 2)) && (
               <p>
                 <strong>Value: {dealerHandValue}</strong>
               </p>
@@ -224,9 +183,7 @@ function Cards({
                 Balance: playerBalance,
                 dealerBalance: dealerBalance,
                 Games: userData.Games + 1,
-                ...(winner === "player"
-              ? { Win: userData.Win + 1 }
-              : { Loss: userData.Loss + 1 })
+                ...(winner === 'player' ? { Win: userData.Win + 1 } : { Loss: userData.Loss + 1 }),
               }}
             >
               <button onClick={handleNewGame}>New Game</button>
@@ -243,10 +200,7 @@ function Cards({
             </p>
           </div>
           <div className="card-stack">
-            <img
-              src={`http://localhost:3000/Back.jpg`}
-              alt="backside of the cards"
-            />
+            <img src={`http://localhost:3000/Back.jpg`} alt="backside of the cards" />
             <p>
               <strong>Card Stack ({numberOfCards} remaining) </strong>
             </p>

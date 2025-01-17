@@ -4,17 +4,7 @@ import Gamepage from '../GamePage/Gamepage';
 import { useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
-async function patchUserData(id, update) {
-  const response = await fetch(`/api/user/${id}`, {
-    method: 'PATCH',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(update),
-  });
-  const updatedUser = await response.json();
-  return updatedUser;
-}
-
-function StartPage({ user, onLoggedIn, onRightLogin, onSuccessfulRegister, onActiveUser }) {
+function StartPage({ user, onLoggedIn, onSuccessfulRegister, onActiveUser }) {
   const [gameStarted, setGameStarted] = useState(false);
   const [card, setCard] = useState(null);
   const [randomCardIds, setRandomCardIds] = useState(null);
