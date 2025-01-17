@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 
 async function patchUser(id, update) {
   const response = await fetch(`/api/user/${id}`, {
-    method: "PATCH",
-    headers: { "Content-Type": "application/json" },
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(update),
   });
   const updatedUser = await response.json();
@@ -13,13 +13,8 @@ async function patchUser(id, update) {
 }
 
 function Cards({
-  card,
   playerBalance,
-  onPlayerBalance,
   dealerBalance,
-  onDealerBalance,
-  totalBet,
-  onTotalBet,
   numberOfCards,
   yourHand,
   dealerHand,
@@ -38,6 +33,10 @@ function Cards({
   gameStarted,
   user,
   winner,
+  onLoggedIn,
+  onRightLogin,
+  onSuccessfulRegister,
+  onActiveUser,
 }) {
   const [upperCardData, setUpperCardData] = useState(null);
   const [yourHandIds, setYourHandIds] = useState(yourHand);
@@ -152,10 +151,21 @@ function Cards({
     });
     navigate("/startpage");
   }
-  function handleQuit() {
+
+  async function handleQuit() {
     setGameOver(true);
     gameStarted(false);
-    navigate("/");
+    await patchUser(userData._id, {
+      Balance: playerBalance,
+      Games: userData.Games + 1,
+      ...(winner === "player"
+        ? { Win: userData.Win + 1 }
+        : { Loss: userData.Loss + 1 }),
+    });
+    onLoggedIn(false);
+    onSuccessfulRegister(false);
+    onActiveUser(null);
+    navigate('/');
   }
 
   return (
@@ -213,6 +223,10 @@ function Cards({
                 ...userData,
                 Balance: playerBalance,
                 dealerBalance: dealerBalance,
+                Games: userData.Games + 1,
+                ...(winner === "player"
+              ? { Win: userData.Win + 1 }
+              : { Loss: userData.Loss + 1 })
               }}
             >
               <button onClick={handleNewGame}>New Game</button>
