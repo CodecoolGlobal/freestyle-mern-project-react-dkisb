@@ -1,36 +1,24 @@
-import express from 'express';
-import mongoose from 'mongoose';
-import Card from './model/Card.js';
-import User from './model/User.js';
-import dotenv from 'dotenv';
-import path from 'path';
-import url from 'url';
+import express from "express";
+import mongoose from "mongoose";
+import Card from "./model/Card.js";
+import User from "./model/User.js";
+import dotenv from "dotenv";
+import path from "path";
+import url from "url";
 dotenv.config();
 const __filename = url.fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
 app.use(express.json());
-app.use(express.static(path.join(__dirname, '/pictures')));
+app.use(express.static(path.join(__dirname, "/pictures")));
 
 const dbUser = process.env.DB_UN;
 const dbPassword = process.env.DB_PW;
 
-mongoose.connect(`mongodb+srv://${dbUser}:${dbPassword}@cluster0.jeldi.mongodb.net/twenty-one-project`);
-
-async function createCard(color, name, value, frontImage) {
-  try {
-    const card = await Card.create({
-      color: color,
-      name: name,
-      value: value,
-      frontImage: frontImage,
-      backImage: './Back.jpg',
-    });
-  } catch (error) {
-    console.error(error);
-  }
-}
+mongoose.connect(
+  `mongodb+srv://${dbUser}:${dbPassword}@cluster0.jeldi.mongodb.net/twenty-one-project`
+);
 
 async function getRandomDeck() {
   const deck = await listAllIds();
@@ -61,17 +49,8 @@ async function createUser(name, password) {
   }
 }
 
-async function deleteUser(id) {
-  try {
-    const user = await User.findByIdAndDelete(id);
-  } catch (error) {
-    console.error(error);
-  }
-}
-
 async function checkUsernameExist(username) {
   const hit = await User.find({ Username: username });
-  //console.log(hit);
   if (hit.length > 0) {
     return true;
   } else {
@@ -88,20 +67,7 @@ async function checkLogin(name, password) {
   }
 }
 
-async function updateUser(id, balance, games, win, loss) {
-  try {
-    const user = await User.findByIdAndUpdate(id);
-    user.Balance = balance;
-    user.Games = games;
-    user.Win = win;
-    user.Loss = loss;
-  } catch (error) {
-    console.error(error);
-  }
-  User.save();
-}
-
-app.get('/api/cards', async (req, res, next) => {
+app.get("/api/cards", async (req, res, next) => {
   try {
     const cardIds = await getRandomDeck();
     res.send(cardIds);
@@ -110,7 +76,7 @@ app.get('/api/cards', async (req, res, next) => {
   }
 });
 
-app.get('/api/cards/:id', async (req, res, next) => {
+app.get("/api/cards/:id", async (req, res, next) => {
   try {
     const id = req.params.id;
     const card = await Card.findById(id);
@@ -120,13 +86,13 @@ app.get('/api/cards/:id', async (req, res, next) => {
   }
 });
 
-app.post('/api/users/registration/', async (req, res, next) => {
+app.post("/api/users/registration/", async (req, res, next) => {
   try {
     const name = req.body.username;
     const password = req.body.password;
     const isExist = await checkUsernameExist(name);
     if (isExist) {
-      return res.json('The username already exists');
+      return res.json("The username already exists");
     } else {
       const newUser = await createUser(name, password);
       console.log(newUser);
@@ -137,44 +103,52 @@ app.post('/api/users/registration/', async (req, res, next) => {
   }
 });
 
-app.post('/api/users/login/', async (req, res, next) => {
+app.post("/api/users/login/", async (req, res, next) => {
   const name = req.body.username;
-  console.log(req.body);
   const password = req.body.password;
-  console.log(password);
   try {
     const validLogin = await checkLogin(name, password);
     if (validLogin) {
       return res.json(validLogin);
     } else {
-      return res.json('Invalid login');
+      return res.json("Invalid login");
     }
   } catch (error) {
     return next(error);
   }
 });
 
-app.put('/api/users/:id', async (req, res, next) => {
+app.put("/api/users/:id", async (req, res, next) => {
   try {
     const { id } = req.params;
     const { Username, Password } = req.body;
-    //console.log(req.body);
-    const updatedUser = await User.findByIdAndUpdate(id, { Username, Password }, { new: true });
+    const updatedUser = await User.findByIdAndUpdate(
+      id,
+      { Username, Password },
+      { new: true }
+    );
     res.status(200).json(updatedUser);
   } catch (error) {
     next(error);
   }
 });
 
-
-app.patch('/api/user/:id', async (req, res) => {
-  console.log(req.params.id);
-  console.log(req.body);
+app.patch("/api/user/:id", async (req, res, next) => {
   const comingData = req.body;
-  const user = await User.findByIdAndUpdate(req.params.id, {Balance: comingData.Balance, Games: comingData.Games, Win: comingData.Win, Loss: comingData.Loss});
-})
+  try {
+    const updatedUser = await User.findByIdAndUpdate(req.params.id, {
+      Balance: comingData.Balance,
+      Games: comingData.Games,
+      Win: comingData.Win,
+      Loss: comingData.Loss,
+    });
+    return res.json(updatedUser);
+  } catch (error) {
+    return next(error);
+  }
+});
 
-app.delete('/api/users/:id', async (req, res, next) => {
+app.delete("/api/users/:id", async (req, res, next) => {
   try {
     const { id } = req.params;
     const deleted = await User.findByIdAndDelete(id);
@@ -183,4 +157,4 @@ app.delete('/api/users/:id', async (req, res, next) => {
     next(err);
   }
 });
-app.listen(3000, () => console.log('Server started on http://localhost:3000/'));
+app.listen(3000, () => console.log("Server started on http://localhost:3000/"));

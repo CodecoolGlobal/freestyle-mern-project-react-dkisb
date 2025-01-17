@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
 async function patchUser(id, update) {
@@ -39,7 +38,6 @@ function Cards({
 }) {
   const [outcomeMessage, setOutcomeMessage] = useState('');
   const [userData, setUserData] = useState(user);
-  const navigate = useNavigate();
   function yourHandMapping() {
     yourHandValue === 20 || yourHandValue === 21;
     const handImages = yourHandData.map((item, index) => {
@@ -115,7 +113,6 @@ function Cards({
     onLoggedIn(true);
     onSuccessfulRegister(true);
     onActiveUser(userData);
-    navigate('/startpage');
   }
 
   async function handleQuit() {
