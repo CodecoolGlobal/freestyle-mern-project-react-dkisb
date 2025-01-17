@@ -129,7 +129,6 @@ function Cards({
     onLoggedIn(false);
     onSuccessfulRegister(false);
     onActiveUser(null);
-    navigate('/');
   }
 
   return (
@@ -188,7 +187,10 @@ function Cards({
             >
               <button onClick={handleNewGame}>New Game</button>
             </Link>
-            <button onClick={handleQuit}>Quit and Logout</button>
+            <Link to='/'>
+              <button onClick={handleQuit}>Quit and Logout</button>
+            </Link>
+            
           </div>
           <div className="players-hand">
             {yourHandMapping()}
